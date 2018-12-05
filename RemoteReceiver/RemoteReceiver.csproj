@@ -78,9 +78,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="AsynchronousSocketListener.cs" />
+    <Compile Include="SysTray.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EventListener.cs" />
+    <Compile Include="RemoteServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
