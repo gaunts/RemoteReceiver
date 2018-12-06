@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace RemoteReceiver
 {
-    class SysTray
+    public class SysTray
     {
         //private static SysTray Instance;
         private static NotifyIcon nIcon;
@@ -28,7 +28,7 @@ namespace RemoteReceiver
         private static void InitIcon()
         {
             nIcon = new NotifyIcon();
-            nIcon.Icon = new System.Drawing.Icon(@"../../fuck.ico");
+            nIcon.Icon = new System.Drawing.Icon(@"C:\fuck.ico");
             nIcon.Text = "Fuck you bitch";
         }
 

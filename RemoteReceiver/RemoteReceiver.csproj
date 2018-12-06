@@ -80,6 +80,7 @@
     </Compile>
     <Compile Include="AsynchronousSocketListener.cs" />
     <Compile Include="SysTray.cs" />
+    <Compile Include="WebServer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="RemoteServer.cs" />
@@ -120,6 +121,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RemoteInterface\RemoteInterface.csproj">
+      <Project>{f028f2b3-ba77-4cc7-904d-8af228d32524}</Project>
+      <Name>RemoteInterface</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

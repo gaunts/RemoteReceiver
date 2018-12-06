@@ -7,9 +7,24 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Runtime;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace RemoteReceiver
 {
+    public class StateObject
+    {
+        // Client  socket.
+        public Socket workSocket = null;
+        // Size of receive buffer.
+        public const int BufferSize = 1024;
+        // Receive buffer.
+        public byte[] buffer = new byte[BufferSize];
+        // Received data string.
+        public StringBuilder sb = new StringBuilder();
+    }
+
     public class RemoteServer
     {
         static Socket newConnectionSocket;
@@ -44,7 +59,24 @@ namespace RemoteReceiver
         private static void AcceptCallback(IAsyncResult ar)
         {
             WaitForConnection();
-            throw new NotImplementedException();
+            Socket listener = (Socket)ar.AsyncState;
+            Socket handler = listener.EndAccept(ar);
+
+            // Create the state object.  
+            StateObject state = new StateObject {
+                workSocket = handler
+            };
+            handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
+                new AsyncCallback(ReadCallback), state);
+        }
+
+        private static void ReadCallback(IAsyncResult ar)
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+
+            StateObject state = (StateObject)ar.AsyncState;
+            Socket handler = state.workSocket;
+            //handler.
         }
 
         public static IPAddress GetLocalIp()
