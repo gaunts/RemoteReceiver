@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WindowsInput;
+using WindowsInput.Native;
 
 namespace WebServerNetCore
 {
@@ -16,6 +18,8 @@ namespace WebServerNetCore
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            InputSimulator sim = new InputSimulator();
+            sim.Keyboard.KeyPress(VirtualKeyCode.VOLUME_UP);
         }
 
         public IConfiguration Configuration { get; }

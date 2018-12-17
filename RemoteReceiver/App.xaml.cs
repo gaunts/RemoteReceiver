@@ -16,7 +16,7 @@ namespace RemoteReceiver
     /// </summary>
     public partial class App : System.Windows.Application
     {
-        protected override async void OnStartup(StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
             SysTray.Init();

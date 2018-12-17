@@ -16,4 +16,9 @@
     <ProjectReference Include="..\RemoteReceiver\RemoteReceiver.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+
 </Project>
