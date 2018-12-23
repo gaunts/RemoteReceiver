@@ -1,44 +1,27 @@
 ﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="WebServerNetFramework._Default" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <div>
+            <asp:UpdatePanel runat="server">
+        <ContentTemplate>
+        <table>
+            <tr><asp:Button runat="server" id="btnVolUp" Text="Vol Up" OnClick="volUp_Click" style="width:30%;height:100px" /></tr>
+            <tr><asp:Button runat="server" id="btnVolDown" Text="Vol Down" OnClick="volDown_Click" style="width:30%;height:100px"/></tr>
+        </table>
+            <br />
+        <table>
+            <tr><asp:Button runat="server" id="btnLeftKey" Text="Left" OnClick="leftKey_Click" style="width:30%;height:100px"/></tr>
+            <tr><asp:Button runat="server" id="btnRightKey" Text="Right" OnClick="rightKey_Click" style="width:30%;height:100px"/></tr>
+        </table>
+        <br />
+        <asp:Button runat="server" id="btnPausePlay" Text="Pause / Play" OnClick="space_Click" style="width:30%;height:100px;align-self:center"/>
+        <br /><br /><br />
+        <asp:Button runat="server" id="btnShutDown" Text="Shut Down" OnClick="shutdown_Click"/>
+        </ContentTemplate>
 
-    <div class="jumbotron">
-        <h1>ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-        <p><a href="http://www.asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-        <p><asp:Button runat="server" id="Button1" Text="Vol Up 2"/></p>
-        <p><asp:Button runat="server" id="btnLogin" Text="Vol Up" OnClick="btnLogin_Click" /></p>
-    </div>
+    </asp:UpdatePanel>
 
-    <div class="row">
-        <div class="col-md-4">
-            <h2>Getting started</h2>
-            <p>
-                ASP.NET Web Forms lets you build dynamic websites using a familiar drag-and-drop, event-driven model.
-            A design surface and hundreds of controls and components let you rapidly build sophisticated, powerful UI-driven sites with data access.
-            </p>
-            <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301948">Learn more &raquo;</a>
-            </p>
-        </div>
-        <div class="col-md-4">
-            <h2>Get more libraries</h2>
-            <p>
-                NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.
-            </p>
-            <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301949">Learn more &raquo;</a>
-            </p>
-        </div>
-        <div class="col-md-4">
-            <h2>Web Hosting</h2>
-            <p>
-                You can easily find a web hosting company that offers the right mix of features and price for your applications.
-            </p>
-            <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301950">Learn more &raquo;</a>
-            </p>
-        </div>
-    </div>
+    </div> 
 
+          
 </asp:Content>

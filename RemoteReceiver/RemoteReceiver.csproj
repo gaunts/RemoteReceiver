@@ -79,8 +79,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AsynchronousSocketListener.cs" />
+    <Compile Include="CommandExecution.cs" />
     <Compile Include="SysTray.cs" />
-    <Compile Include="WebServer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="RemoteServer.cs" />

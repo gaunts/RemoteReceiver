@@ -2,10 +2,13 @@
 
 namespace RemoteInterface
 {
-    [Serializable]
-    public class RemoteAccess
+    public enum RemoteCommand
     {
-        public string DeviceName;
-        public string DeviceId;
+        VolumeUp = 0,
+        VolumeDown = 1,
+        LeftArrow = 2,
+        RightArrow = 3,
+        PausePlay = 4,
+        Shutdown = 5
     }
 }
