@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Runtime;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using RemoteInterface;
 
 namespace RemoteReceiver
 {
@@ -25,7 +26,7 @@ namespace RemoteReceiver
         public StringBuilder sb = new StringBuilder();
     }
 
-    public class RemoteServer
+    public class RemoteWebListener
     {
         static Socket newConnectionSocket;
 
@@ -34,9 +35,6 @@ namespace RemoteReceiver
             IPAddress localAddress = GetLocalIp();
             IPEndPoint localEndPoint = new IPEndPoint(localAddress, 1337);
             newConnectionSocket = new Socket(localAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-
-            //Debug.WriteLine("Returning IP address : {0}", localAddress.ToString());
-            SysTray.DisplayString(localAddress.ToString());
 
             try
             {
@@ -76,32 +74,35 @@ namespace RemoteReceiver
 
             StateObject state = (StateObject)ar.AsyncState;
             Socket handler = state.workSocket;
-            int bytesRead = handler.EndReceive(ar);
+            int bytesRead = 0;
+            try
+            {
+                bytesRead = handler.EndReceive(ar);
+            }
+            catch(SocketException e)
+            {
+                return;
+            }
 
+            Debug.WriteLine("receive : {0}", bytesRead);
             if (bytesRead > 0)
             {
-                // There  might be more data, so store the data received so far.  
                 state.sb.Append(Encoding.ASCII.GetString(
                     state.buffer, 0, bytesRead));
-
-                // Check for end-of-file tag. If it is not there, read   
-                // more data.
                 content = state.sb.ToString();
+
                 if (content.IndexOf("<EOF>") > -1)
                 {
-                    // All the data has been read from the   
-                    // client. Display it on the console.  
-                    Console.WriteLine("Read {0} bytes from socket. \n Data : {1}",
+                    content = content.Substring(0, content.Length - "<EOF>".Length);
+                    Debug.WriteLine("Read {0} bytes from socket. \n Data : {1}",
                         content.Length, content);
-                    // Echo the data back to the client.  
-                    //Send(handler, content);
+                    if (Enum.TryParse(content, out RemoteCommand command))
+                        CommandExecution.ExecuteCommand(command);
+                    state.sb = new StringBuilder();
                 }
-                else
-                {
-                    // Not all data received. Get more.  
-                    handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
-                    new AsyncCallback(ReadCallback), state);
-                }
+
+                handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
+                new AsyncCallback(ReadCallback), state);
             }
         }
 

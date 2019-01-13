@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RemoteInterface;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,148 +17,61 @@ using WindowsInput.Native;
 
 namespace WebServerNetFramework
 {
-    public class StateObject
-    {
-        // Client socket.  
-        public Socket workSocket = null;
-        // Size of receive buffer.  
-        public const int BufferSize = 256;
-        // Receive buffer.  
-        public byte[] buffer = new byte[BufferSize];
-        // Received data string.  
-        public StringBuilder sb = new StringBuilder();
-    }
-
     public partial class _Default : Page
     {
-        public static IPAddress GetLocalIp()
-        {
-            IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
-            IPAddress localAddress = ipHostInfo.AddressList.Where(addr => addr.AddressFamily == AddressFamily.InterNetwork).FirstOrDefault();
-
-            if (localAddress == null)
-                localAddress = new IPAddress(Encoding.ASCII.GetBytes("127.0.0.1"));
-
-            return localAddress;
-        }
-
-        public static void StartClient()
-        {
-            // Data buffer for incoming data.  
-            byte[] bytes = new byte[1024];
-
-            // Connect to a remote device.  
-            try
-            {
-                // Establish the remote endpoint for the socket.  
-                // This example uses port 11000 on the local computer.  
-                //IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
-                IPAddress ipAddress = GetLocalIp();
-                IPEndPoint remoteEP = new IPEndPoint(ipAddress, 1337);
-                Debug.WriteLine(ipAddress.ToString());
-                // Create a TCP/IP  socket.  
-                Socket sender = new Socket(ipAddress.AddressFamily,
-                    SocketType.Stream, ProtocolType.Tcp);
-
-                // Connect the socket to the remote endpoint. Catch any errors.  
-                try
-                {
-                    sender.Connect(remoteEP);
-
-                    Debug.WriteLine("Socket connected to {0}",
-                        sender.RemoteEndPoint.ToString());
-
-                    // Encode the data string into a byte array.  
-                    byte[] msg = Encoding.ASCII.GetBytes("This is a test<EOF>");
-
-                    // Send the data through the socket.  
-                    int bytesSent = sender.Send(msg);
-
-                    // Receive the response from the remote device.  
-                    int bytesRec = sender.Receive(bytes);
-                    Debug.WriteLine("Echoed test = {0}",
-                        Encoding.ASCII.GetString(bytes, 0, bytesRec));
-
-                    // Release the socket.  
-                    sender.Shutdown(SocketShutdown.Both);
-                    sender.Close();
-
-                }
-                catch (ArgumentNullException ane)
-                {
-                    Debug.WriteLine("ArgumentNullException : {0}", ane.ToString());
-                }
-                catch (SocketException se)
-                {
-                    Debug.WriteLine("SocketException : {0}", se.ToString());
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine("Unexpected exception : {0}", e.ToString());
-                }
-
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e.ToString());
-            }
-        }
-
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
 
-        protected void volUp_Click(object sender, EventArgs e)
+        protected void VolUp_Click(object sender, EventArgs e)
         {
-            StartClient();
-            //InputSimulator sim = new InputSimulator();
-            //sim.Keyboard.KeyPress(VirtualKeyCode.VOLUME_UP);
+            RemoteSender.Send(RemoteCommand.VolumeUp);
         }
 
-        protected void foo_OnClick(object sender, EventArgs e)
+        protected void VolDown_Click(object sender, EventArgs e)
         {
-            InputSimulator sim = new InputSimulator();
-            sim.Keyboard.KeyPress(VirtualKeyCode.VOLUME_UP);
+            RemoteSender.Send(RemoteCommand.VolumeDown);
         }
 
-        protected void volDown_Click(object sender, EventArgs e)
+        protected void LeftKey_Click(object sender, EventArgs e)
         {
-            InputSimulator sim = new InputSimulator();
-            sim.Keyboard.KeyPress(VirtualKeyCode.VOLUME_DOWN);
+            RemoteSender.Send(RemoteCommand.LeftArrow);
         }
 
-        protected void leftKey_Click(object sender, EventArgs e)
+        protected void RightKey_Click(object sender, EventArgs e)
         {
-            InputSimulator sim = new InputSimulator();
-            sim.Keyboard.KeyPress(VirtualKeyCode.LEFT);
+            RemoteSender.Send(RemoteCommand.RightArrow);
         }
 
-        protected void rightKey_Click(object sender, EventArgs e)
+        protected void Space_Click(object sender, EventArgs e)
         {
-            InputSimulator sim = new InputSimulator();
-            sim.Keyboard.KeyPress(VirtualKeyCode.RIGHT);
+            RemoteSender.Send(RemoteCommand.Space);
         }
 
-        protected void space_Click(object sender, EventArgs e)
+        protected void Previous_Click(object sender, EventArgs e)
         {
-            InputSimulator sim = new InputSimulator();
-            sim.Keyboard.KeyPress(VirtualKeyCode.SPACE);
+            RemoteSender.Send(RemoteCommand.Previous);
         }
 
-        protected void shutdown_Click(object sender, EventArgs e)
+        protected void PlayPause_Click(object sender, EventArgs e)
         {
-            Process.Start(new ProcessStartInfo("shutdown", "/s /t 0 /f") { CreateNoWindow = true, UseShellExecute = false });
+            RemoteSender.Send(RemoteCommand.PlayPause);
         }
 
-        [System.Web.Mvc.HttpPost]
-        [Microsoft.AspNetCore.Mvc.ActionName("Simple")]
-        public HttpResponseMessage PostSimple([FromBody] string value)
+        protected void Next_Click(object sender, EventArgs e)
         {
-            InputSimulator sim = new InputSimulator();
-            sim.Keyboard.KeyPress(VirtualKeyCode.VOLUME_UP);
-            var response = new HttpResponseMessage(HttpStatusCode.Accepted);
-            return response;
+            RemoteSender.Send(RemoteCommand.Next);
+        }
+
+
+        protected void Shutdown_Click(object sender, EventArgs e)
+        {
+            RemoteSender.Send(RemoteCommand.Shutdown);
+        }
+
+        protected void LaunchServer_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(@"C:\Users\simon\Desktop\RemoteReceiver.exe");
         }
     }
 }

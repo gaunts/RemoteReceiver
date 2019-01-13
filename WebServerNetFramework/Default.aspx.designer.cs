@@ -13,15 +13,6 @@ namespace WebServerNetFramework {
     public partial class _Default {
         
         /// <summary>
-        /// ScriptManager1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
-        
-        /// <summary>
         /// btnVolUp control.
         /// </summary>
         /// <remarks>
@@ -58,13 +49,40 @@ namespace WebServerNetFramework {
         protected global::System.Web.UI.WebControls.Button btnRightKey;
         
         /// <summary>
-        /// btnPausePlay control.
+        /// btnSpace control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPausePlay;
+        protected global::System.Web.UI.WebControls.Button btnSpace;
+        
+        /// <summary>
+        /// ButtonPrevious control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonPrevious;
+        
+        /// <summary>
+        /// ButtonPausePlay control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonPausePlay;
+        
+        /// <summary>
+        /// ButtonNext control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonNext;
         
         /// <summary>
         /// btnShutDown control.
@@ -74,5 +92,14 @@ namespace WebServerNetFramework {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnShutDown;
+        
+        /// <summary>
+        /// Launchserver control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Launchserver;
     }
 }

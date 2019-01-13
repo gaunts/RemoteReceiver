@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
@@ -18,16 +21,31 @@ namespace RemoteReceiver
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+
+            AppDomain.CurrentDomain.AssemblyResolve += OnResolveAssembly;
             base.OnStartup(e);
+            Preferences.CorrectAutoLaunchPath();
             SysTray.Init();
-            RemoteServer server = new RemoteServer();
+            RemoteWebListener.StartListening();
+            RemoteSerialListener.StartListening();
         }
 
-        //private async Task LaunchTestsAsync()
-        //{
-        //    await Task.Delay(2000);
-        //    InputSimulator sim = new InputSimulator();
-        //    sim.Keyboard.KeyPress(VirtualKeyCode.VOLUME_UP);
-        //}
+        private static Assembly OnResolveAssembly(object sender, ResolveEventArgs args)
+        {
+            Assembly executingAssembly = Assembly.GetExecutingAssembly();
+            AssemblyName assemblyName = new AssemblyName(args.Name);
+
+            var path = assemblyName.Name + ".dll";
+            if (assemblyName.CultureInfo.Equals(CultureInfo.InvariantCulture) == false) path = String.Format(@"{0}\{1}", assemblyName.CultureInfo, path);
+
+            using (Stream stream = executingAssembly.GetManifestResourceStream(path))
+            {
+                if (stream == null) return null;
+
+                var assemblyRawBytes = new byte[stream.Length];
+                stream.Read(assemblyRawBytes, 0, assemblyRawBytes.Length);
+                return Assembly.Load(assemblyRawBytes);
+            }
+        }
     }
 }

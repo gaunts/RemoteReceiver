@@ -9,6 +9,8 @@ body {
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    border:1px;
+    border-color:red;
 }
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
