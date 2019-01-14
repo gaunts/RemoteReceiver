@@ -8,7 +8,7 @@
     <Setting Name="AutoLaunch" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="Mappings" Type="System.Collections.Specialized.StringCollection" Scope="User">
+    <Setting Name="CustomProfiles" Type="CustomPreferences.ProfilesList" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

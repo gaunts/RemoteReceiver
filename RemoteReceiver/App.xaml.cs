@@ -28,6 +28,7 @@ namespace RemoteReceiver
             SysTray.Init();
             RemoteWebListener.StartListening();
             RemoteSerialListener.StartListening();
+            ButtonsConfigurationHelper.ShowConfigurationWindow();
         }
 
         private static Assembly OnResolveAssembly(object sender, ResolveEventArgs args)

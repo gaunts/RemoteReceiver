@@ -1,7 +1,10 @@
-﻿using Microsoft.Win32;
+﻿using CustomPreferences;
+using Microsoft.Win32;
+using RemoteInterface;
 using RemoteReceiver.Properties;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -10,8 +13,27 @@ using System.Windows;
 
 namespace RemoteReceiver
 {
-    public static class Preferences
+    public class Preferences : ApplicationSettingsBase
     {
+        private static readonly Preferences _instance;
+        public static Preferences Instance
+        {
+            get
+            {
+                return _instance;
+            }
+        }
+
+        static Preferences()
+        {
+            _instance = new Preferences();
+        }
+
+        private Preferences()
+        {
+
+        }
+
         public static bool IsAutoDetectEnabled
         {
             get
@@ -74,6 +96,12 @@ namespace RemoteReceiver
                     MessageBox.Show("Error : could not register the app for auto launch");
                 }
             }
+        }
+
+        public static ProfilesList CustomProfiles
+        {
+            get => Settings.Default.CustomProfiles ?? new ProfilesList();
+            set { Settings.Default.CustomProfiles = value; Settings.Default.Save(); }
         }
     }
 }

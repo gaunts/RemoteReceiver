@@ -49,12 +49,12 @@ namespace RemoteReceiver.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.Specialized.StringCollection Mappings {
+        public global::CustomPreferences.ProfilesList CustomProfiles {
             get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["Mappings"]));
+                return ((global::CustomPreferences.ProfilesList)(this["CustomProfiles"]));
             }
             set {
-                this["Mappings"] = value;
+                this["CustomProfiles"] = value;
             }
         }
     }

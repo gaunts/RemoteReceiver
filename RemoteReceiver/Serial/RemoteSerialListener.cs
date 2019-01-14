@@ -113,23 +113,6 @@ namespace RemoteReceiver
             return false;
         }
 
-        private static void ConfirmationReceive(object sender, SerialDataReceivedEventArgs e)
-        {
-            SerialPort testedPort = (SerialPort)sender;
-            string result = testedPort.ReadExisting().TrimEnd('\r', '\n');
-            testedPort.DataReceived -= ConfirmationReceive;
-            testedPort.Close();
-            if (result != responseString)
-            {
-                Debug.WriteLine($"Port {testedPort.PortName} said {result}");
-            }
-            else
-            {
-                _devicePort = new SerialPort(testedPort.PortName, 9600, Parity.None, 8, StopBits.One);
-                _devicePort.DataReceived += SerialRead;
-                Debug.WriteLine($"Port {testedPort.PortName} is IR receiver !");
-            }
-        }
 
         private static void SerialRead(object sender, SerialDataReceivedEventArgs e)
         {
@@ -137,9 +120,22 @@ namespace RemoteReceiver
             Debug.WriteLine(port.ReadExisting());
         }
 
-        public static void TestWrite()
-        {
-            TestPort("COM3");
-        }
+        //private static void ConfirmationReceive(object sender, SerialDataReceivedEventArgs e)
+        //{
+        //    SerialPort testedPort = (SerialPort)sender;
+        //    string result = testedPort.ReadExisting().TrimEnd('\r', '\n');
+        //    testedPort.DataReceived -= ConfirmationReceive;
+        //    testedPort.Close();
+        //    if (result != responseString)
+        //    {
+        //        Debug.WriteLine($"Port {testedPort.PortName} said {result}");
+        //    }
+        //    else
+        //    {
+        //        _devicePort = new SerialPort(testedPort.PortName, 9600, Parity.None, 8, StopBits.One);
+        //        _devicePort.DataReceived += SerialRead;
+        //        Debug.WriteLine($"Port {testedPort.PortName} is IR receiver !");
+        //    }
+        //}
     }
 }

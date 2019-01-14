@@ -47,7 +47,8 @@ namespace RemoteReceiver
 
             nIcon.ContextMenu.MenuItems.Add("Launch at windows startup").Click += (s, c) => { Preferences.IsAutoLaunchEnabled = !Preferences.IsAutoLaunchEnabled; UpdateContextMenuChecks(); };
             nIcon.ContextMenu.MenuItems.Add("Auto detect receiver").Click += (s, c) => { Preferences.IsAutoDetectEnabled = !Preferences.IsAutoDetectEnabled; UpdateContextMenuChecks(); };
-            nIcon.ContextMenu.MenuItems.Add("Receiver").Click += (s, c) => { RemoteSerialListener.TestWrite(); };
+            nIcon.ContextMenu.MenuItems.Add("Receiver");
+            nIcon.ContextMenu.MenuItems.Add("Configure").Click += (s, c) => { ButtonsConfigurationHelper.ShowConfigurationWindow(); };
             nIcon.ContextMenu.MenuItems.Add("Exit").Click += (s, c) => { nIcon.Dispose(); System.Windows.Application.Current.Shutdown(); };
         }
 
