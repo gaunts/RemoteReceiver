@@ -9,58 +9,19 @@ using System.Windows.Controls;
 
 namespace RemoteReceiver
 {
-    //public static class TranslationHelper
-    //{
-    //    private static ResourceLoader Loader { get; set; }
-
-    //    public static string LocalizedStringFromKey(string key)
-    //    {
-    //        if (Loader == null)
-    //            Loader = ResourceLoader.GetForViewIndependentUse();
-    //        return Loader.GetString(key);
-    //    }
-    //}
-
     /// <summary>
-    /// Used to associate an enum with a code. Usualy used to convert an enum in the viewModel to a string value in the Model.
+    /// Used to associate an enum with a string.
     /// </summary>
-    public class EnumCodeAttribute : System.Attribute
+    public class EnumLabelAttribute : System.Attribute
     {
-        public string StringValue { get; set; }
-        public int ComparedCharsCount { get; set; }
-        public string DynamicValueFieldName { get; set; }
+        public string Label { get; set; }
 
-        public EnumCodeAttribute(string value)
+        public EnumLabelAttribute(string value)
         {
-            StringValue = value;
-            ComparedCharsCount = -1;
-            DynamicValueFieldName = null;
-        }
-
-        public EnumCodeAttribute(string value, int comparedCharsCount, string dynamicValueFieldName)
-        {
-            StringValue = value;
-            ComparedCharsCount = comparedCharsCount;
-            DynamicValueFieldName = dynamicValueFieldName;
+            Label = value;
         }
     }
 
-    /// <summary>
-    /// Every labelled enum must have this attribute.
-    /// Used to launch an exception if you try to get a string from an invalid enum
-    /// </summary>
-    public class LabelledEnumTypeAttribute : LocalizedEnumAttribute { }
-
-    /// <summary>
-    /// Use this if an enum value from a LabelledEnumType enum does not have a label.
-    /// Used to launch an exception if you try to get a string from an invalid enum
-    /// </summary>
-    public class NoLabelEnumValue : Attribute { }
-
-    /// <summary>
-    /// To be inherited by LabelledEnumTypeAttribute and MessageEnumTypeAttribute
-    /// </summary>
-    public abstract class LocalizedEnumAttribute : Attribute { }
 
     public static class EnumExtensions
     {
@@ -82,15 +43,6 @@ namespace RemoteReceiver
 
     public static class EnumStrings
     {
-        public static string GetEnumLocalizationKey(Enum localizedEnumValue)
-        {
-            if (localizedEnumValue.GetType().GetTypeInfo().GetCustomAttribute<LocalizedEnumAttribute>(true) == null)
-                throw new Exception("Enums : This enum is not localized. Need to implement LocalizedEnumAttribute");
-
-            string localizationKey = String.Format("{0}_{1}", localizedEnumValue.GetType().Name, localizedEnumValue.ToString());
-            return localizationKey;
-        }
-
         /// <summary>
         /// Returns the localized string corresponding to the given value. Value must be from LabelledEnums.
         /// Throws an exception if value is invalid     
@@ -99,17 +51,9 @@ namespace RemoteReceiver
         /// <returns></returns>
         public static string GetEnumLabel(Enum labelledEnumValue)
         {
-            if (labelledEnumValue.GetType().GetTypeInfo().GetCustomAttribute<LabelledEnumTypeAttribute>(true) == null)
-                throw new Exception("Enums : This enum is not localized. Need to implement LabelledEnumTypeAttribute");
-
-            if (labelledEnumValue.GetCustomAttribute(typeof(NoLabelEnumValue)) != null)
-                return null;
-
-            //return labelledEnumValue;
-            //return TranslationHelper.LocalizedStringFromKey(GetEnumLocalizationKey(labelledEnumValue));
+            return (labelledEnumValue.GetCustomAttribute(typeof(EnumLabelAttribute)) as EnumLabelAttribute).Label ;
         }
     }
-
 
     public class EnumComboBox : ComboBox
     {
