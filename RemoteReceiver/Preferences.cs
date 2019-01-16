@@ -100,7 +100,15 @@ namespace RemoteReceiver
 
         public static ProfilesList CustomProfiles
         {
-            get => Settings.Default.CustomProfiles ?? new ProfilesList();
+            get
+            {
+                if (Settings.Default.CustomProfiles == null)
+                {
+                    Settings.Default.CustomProfiles = new ProfilesList();
+                    Settings.Default.Save();
+                }
+                return Settings.Default.CustomProfiles;
+            }
             set { Settings.Default.CustomProfiles = value; Settings.Default.Save(); }
         }
     }

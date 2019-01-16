@@ -47,7 +47,10 @@ namespace RemoteReceiver
 
         private void ProfilesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            LoadedButtonsList = new ObservableCollection<ButtonConfig>(((Profile)ProfilesList.SelectedItem).Buttons);
+            if (ProfilesList.SelectedItem != null)
+            {
+                LoadedButtonsList = new ObservableCollection<ButtonConfig>(((Profile)ProfilesList.SelectedItem).Buttons);
+            }
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -59,8 +62,10 @@ namespace RemoteReceiver
 
         private void MainGrid_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (Keyboard.FocusedElement != null)
+            if (Keyboard.FocusedElement is TextBox)
+            {
                 Keyboard.FocusedElement.Focusable = false;
+            }
         }
 
         private void NewButtonConfig_Click(object sender, RoutedEventArgs e)

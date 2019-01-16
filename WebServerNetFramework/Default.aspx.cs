@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using RemoteInterface;
+﻿using RemoteInterface;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

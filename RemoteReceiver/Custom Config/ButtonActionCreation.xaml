@@ -5,8 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RemoteReceiver"
         mc:Ignorable="d"
-        Title="ButtonActionCreation" Height="450" Width="800">
-    <Grid>
-        
+        Title="ButtonActionCreation" Height="200" Width="500"
+        ResizeMode="NoResize"
+        >
+    <Grid VerticalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Button Name"/>
+        <TextBox Grid.Row="1"/>
+
+        <TextBlock Text="Action type" Grid.Column="1"/>
+        <TextBox Grid.Column="1" Grid.Row="1"/>
+
+        <TextBlock Text="Action" Grid.Column="2"/>
+        <TextBox Grid.Column="2" Grid.Row="1"/>
     </Grid>
 </Window>

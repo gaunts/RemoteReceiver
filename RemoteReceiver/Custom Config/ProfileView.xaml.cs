@@ -71,13 +71,13 @@ namespace RemoteReceiver
         {
             if (Box.Text.Length > 0)
             {
-                if (Preferences.CustomProfiles.Profiles.Except(new List<Profile>() { DisplayedProfile}).Where(profile => profile.Name == Box.Text).Count() > 0)
-                    MessageBox.Show("Profile name already in use");
-                else
-                {
+                //if (Preferences.CustomProfiles.Profiles.Except(new List<Profile>() { DisplayedProfile}).Where(profile => profile.Name == Box.Text).Count() > 0)
+                //    MessageBox.Show("Profile name already in use");
+                //else
+                //{
                     DisplayedProfile.Name = Box.Text;
                     Settings.Default.Save();
-                }
+                //}
             }
             Block.Visibility = Visibility.Visible;
             Box.Visibility = Visibility.Collapsed;

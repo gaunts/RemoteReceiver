@@ -35,8 +35,7 @@ namespace RemoteReceiver
         internal static void CreateButtonForProfile(Profile selectedItem)
         {
             ButtonActionCreation window = new ButtonActionCreation();
-            window.Topmost = true;
-            window.Show();
+            window.ShowDialog();
         }
     }
 }
