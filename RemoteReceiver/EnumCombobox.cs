@@ -25,12 +25,6 @@ namespace RemoteReceiver
 
     public static class EnumExtensions
     {
-        public static string GetEnumCode(this Enum enumValue)
-        {
-            EnumCodeAttribute att = enumValue.GetCustomAttribute(typeof(EnumCodeAttribute)) as EnumCodeAttribute;
-            return att?.StringValue;
-        }
-
         public static Attribute GetCustomAttribute(this Enum enumValue, Type attributeType)
         {
             Type enumType = enumValue.GetType();
