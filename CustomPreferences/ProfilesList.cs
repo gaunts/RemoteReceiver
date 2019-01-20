@@ -5,15 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WindowsInput.Native;
+using Utils;
 
 namespace CustomPreferences
 {
-    public enum Fuck
-    {
-        lol,
-        merde
-    }
-
     [Serializable]
     public class ProfilesList
     {
@@ -26,9 +21,10 @@ namespace CustomPreferences
     }
 
     [Serializable]
-    public class Profile : INotifyPropertyChanged
+    public class Profile : INotifyPropertyChanged//, IEquatable<Profile>
     {
         public List<ButtonConfig> Buttons { get; set; }
+        //public string Id { get; set; }
         private string name;
         public string Name
         {
@@ -38,9 +34,15 @@ namespace CustomPreferences
 
         public Profile()
         {
+            //Id = Guid.NewGuid().ToString("N");
             Buttons = new List<ButtonConfig>();
             Name = "New profile";
         }
+
+        //bool IEquatable<Profile>.Equals(Profile other)
+        //{
+        //    return other != null && other.Id == Id;
+        //}
 
         #region NotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
@@ -52,30 +54,53 @@ namespace CustomPreferences
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
+
         #endregion
+    }
+
+    public enum ButtonConfigType : int
+    {
+        [EnumLabel("Key press")]
+        KeyPress,
+        //[EnumLabel("Mouse action")]
+        //MouseAction,
+        [EnumLabel("Command")]
+        Command
     }
 
     [Serializable]
     public abstract class ButtonConfig
     {
-        private string Name { get; set; }
+        public string Name { get; set; }
+        public string Code { get; set; }
+        public abstract Enum Value { get; set; }
 
         public ButtonConfig()
         {
             Name = "New button";
+            Code = null;
         }
     }
 
     [Serializable]
     public class KeyPressButtonConfig : ButtonConfig
     {
-        public VirtualKeyCode KeyCode { get; set; }
+        private VirtualKeyCode Keycode = VirtualKeyCode.SPACE;
+        public override Enum Value { get => Keycode; set => Keycode = (VirtualKeyCode)value; }
+    }
+
+    public enum CommandType : int
+    {
+        [EnumLabel("ShutDown")]
+        Shutdown,
+        [EnumLabel("Sleep")]
+        Sleep
     }
 
     [Serializable]
     public class CommandButtonConfig : ButtonConfig
     {
-        public string Command;
-        public string Parameters;
+        private CommandType CommandType = CommandType.Shutdown;
+        public override Enum Value { get => CommandType; set => CommandType = (CommandType)value; }
     }
 }

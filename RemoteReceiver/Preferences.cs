@@ -111,5 +111,16 @@ namespace RemoteReceiver
             }
             set { Settings.Default.CustomProfiles = value; Settings.Default.Save(); }
         }
+
+        public static Profile SelectedProfile
+        {
+            get => Settings.Default.SelectedProfile;
+            set { Settings.Default.SelectedProfile = value; Settings.Default.Save(); }
+        }
+
+        public static void SaveProfiles()
+        {
+            CustomProfiles = CustomProfiles;
+        }
     }
 }

@@ -17,6 +17,7 @@
         <DataTemplate x:Key="ButtonTemplate" DataType="customPreferences:ButtonConfig">
             <local:ButtonView DisplayedButtonConfig="{Binding}"/>
         </DataTemplate>
+
     </Window.Resources>
  
     <Grid x:Name="MainGrid" MouseLeftButtonDown="MainGrid_MouseDown" Background="Transparent">
@@ -42,6 +43,33 @@
                       x:Name="ProfilesList"
                       SelectionChanged="ProfilesListView_SelectionChanged"
                       >
+                <ListView.Resources>
+                    <ControlTemplate x:Key="SelectedTemplate" TargetType="ListViewItem">
+                        <Border CornerRadius="5" BorderThickness="1" BorderBrush="DarkGray" Background="#FF92C6F9" Padding="2" HorizontalAlignment="Left" Margin="5" Tag="{Binding Value}">
+                            <TextBlock Text="{Binding Name}" Margin="5" />
+                        </Border>
+                    </ControlTemplate>
+                    <Style TargetType="ListViewItem" x:Key="ListViewStyle">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListViewItem">
+                                    <Border CornerRadius="5" BorderThickness="1" BorderBrush="DarkGray" Background="WhiteSmoke" Padding="2" HorizontalAlignment="Left" Margin="5" Tag="{Binding Value}">
+                                        <TextBlock Text="{Binding Name}" Margin="5" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="true" />
+                                    <Condition Property="Selector.IsSelectionActive" Value="true" />
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Template" Value="{StaticResource SelectedTemplate}" />
+                            </MultiTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.Resources>
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>

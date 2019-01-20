@@ -1,4 +1,5 @@
-﻿using RemoteInterface;
+﻿using CustomPreferences;
+using RemoteInterface;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,6 +11,21 @@ using WindowsInput.Native;
 
 namespace RemoteReceiver
 {
+    public static class PreferencesExtensions
+    {
+        public static void ExecuteCommand(this KeyPressButtonConfig config)
+        {
+            InputSimulator sim = new InputSimulator();
+            sim.Keyboard.KeyPress((VirtualKeyCode)config.Value);
+        }
+
+        //public static void ExecuteCommand(this CommandButtonConfig config)
+        //{
+        //    InputSimulator sim = new InputSimulator();
+        //    //sim.Keyboard.KeyPress(config.KeyCode);
+        //}
+    }
+
     public static class CommandExecution
     {
         public static void ExecuteCommand(RemoteCommand command)

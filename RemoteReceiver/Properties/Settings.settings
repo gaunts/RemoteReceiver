@@ -11,5 +11,8 @@
     <Setting Name="CustomProfiles" Type="CustomPreferences.ProfilesList" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="SelectedProfile" Type="CustomPreferences.Profile" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

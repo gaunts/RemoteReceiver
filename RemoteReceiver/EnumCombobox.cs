@@ -6,51 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using Utils;
 
 namespace RemoteReceiver
 {
-    /// <summary>
-    /// Used to associate an enum with a string.
-    /// </summary>
-    public class EnumLabelAttribute : System.Attribute
-    {
-        public string Label { get; set; }
-
-        public EnumLabelAttribute(string value)
-        {
-            Label = value;
-        }
-    }
-
-
-    public static class EnumExtensions
-    {
-        public static Attribute GetCustomAttribute(this Enum enumValue, Type attributeType)
-        {
-            Type enumType = enumValue.GetType();
-            var field = enumType.GetMember(enumValue.ToString()).FirstOrDefault();
-            var attribute = field.GetCustomAttribute(attributeType);
-
-            return attribute;
-        }
-    }
-
-    public static class EnumStrings
-    {
-        /// <summary>
-        /// Returns the localized string corresponding to the given value. Value must be from LabelledEnums.
-        /// Throws an exception if value is invalid     
-        /// </summary>
-        /// <param name="labelledEnumValue"></param>
-        /// <returns></returns>
-        public static string GetEnumLabel(Enum labelledEnumValue)
-        {
-            return (labelledEnumValue.GetCustomAttribute(typeof(EnumLabelAttribute)) as EnumLabelAttribute).Label ;
-        }
-    }
-
     public class EnumComboBox : ComboBox
     {
+        private Type _type;
+
         #region EnumValue Property
         public static readonly DependencyProperty EnumValueProperty = DependencyProperty.RegisterAttached(
             "EnumValue",
@@ -64,10 +27,15 @@ namespace RemoteReceiver
         private static void OnEnumValuePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             EnumComboBox combobox = d as EnumComboBox;
-            if (combobox.ItemsSource == null)
+            if (e.NewValue == null)
+                return;
+            if (combobox.ItemsSource == null || !EqualityComparer<Type>.Default.Equals(e.NewValue?.GetType(), combobox._type))
             {
+                combobox._type = e.NewValue?.GetType();
                 combobox.InitItemsSourceFromType(e.NewValue.GetType());
-                combobox.SelectedIndex = Array.IndexOf(combobox.enumsList, e.NewValue);
+                int newIndex = Array.IndexOf(combobox.enumsList, e.NewValue);
+                if (combobox.SelectedIndex != newIndex)
+                    combobox.SelectedIndex = newIndex;
             }
         }
 
@@ -97,7 +65,7 @@ namespace RemoteReceiver
         private void Combobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int index = this.SelectedIndex;
-            EnumValue = enumsList.GetValue(index);
+            EnumValue = index == -1 ? null : enumsList.GetValue(index);
         }
 
         private Array enumsList;

@@ -28,10 +28,18 @@ namespace RemoteReceiver
         {
             LoadedProfilesList = new ObservableCollection<Profile>(Preferences.CustomProfiles.Profiles);
             InitializeComponent();
+            Loaded += HasLoaded;
+        }
+
+        private void HasLoaded(object sender, RoutedEventArgs e)
+        {
+            ProfilesList.SelectedItem = Preferences.SelectedProfile;
         }
 
         public ObservableCollection<Profile> LoadedProfilesList { get; set; }
         public ObservableCollection<ButtonConfig> LoadedButtonsList { get; set; }
+
+        #region Buttons
 
         private void NewProfileButton_Click(object sender, RoutedEventArgs e)
         {
@@ -45,12 +53,23 @@ namespace RemoteReceiver
             LoadedProfilesList.Remove(profile);
         }
 
+        private void NewButtonConfig_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonsConfigurationHelper.CreateButtonForProfile((Profile)ProfilesList.SelectedItem);
+        }
+
+        private void DeleteButtonConfig_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        #endregion
+
+        #region Micelanious
         private void ProfilesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ProfilesList.SelectedItem != null)
-            {
-                LoadedButtonsList = new ObservableCollection<ButtonConfig>(((Profile)ProfilesList.SelectedItem).Buttons);
-            }
+            LoadedButtonsList = ProfilesList.SelectedItem != null ? new ObservableCollection<ButtonConfig>(((Profile)ProfilesList.SelectedItem).Buttons) : new ObservableCollection<ButtonConfig>();
+            Preferences.SelectedProfile = (Profile)ProfilesList.SelectedItem;
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -67,15 +86,6 @@ namespace RemoteReceiver
                 Keyboard.FocusedElement.Focusable = false;
             }
         }
-
-        private void NewButtonConfig_Click(object sender, RoutedEventArgs e)
-        {
-            ButtonsConfigurationHelper.CreateButtonForProfile((Profile)ProfilesList.SelectedItem);
-        }
-
-        private void DeleteButtonConfig_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        #endregion
     }
 }
