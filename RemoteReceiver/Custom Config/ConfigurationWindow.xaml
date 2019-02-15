@@ -11,9 +11,28 @@
         >
 
     <Window.Resources>
+        <Style x:Key="MyContainer" TargetType="{x:Type ListViewItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <Border BorderThickness="1" Background="White" x:Name="MainBorder">
+                            <local:ProfileView DisplayedProfile="{Binding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter TargetName="MainBorder" Property="Background" Value="Yellow"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        </Style>
+        
         <DataTemplate x:Key="ProfileTemplate" DataType="customPreferences:Profile">
             <local:ProfileView DisplayedProfile="{Binding}"/>
         </DataTemplate>
+
         <DataTemplate x:Key="ButtonTemplate" DataType="customPreferences:ButtonConfig">
             <local:ButtonView DisplayedButtonConfig="{Binding}"/>
         </DataTemplate>
@@ -39,42 +58,10 @@
             <ListView Grid.Row="1" 
                       BorderThickness="0"
                       ItemsSource="{Binding LoadedProfilesList, Mode=OneWay}"
-                      ItemTemplate="{StaticResource ResourceKey=ProfileTemplate}"
                       x:Name="ProfilesList"
                       SelectionChanged="ProfilesListView_SelectionChanged"
+                      ItemContainerStyle="{StaticResource MyContainer}"
                       >
-                <ListView.Resources>
-                    <ControlTemplate x:Key="SelectedTemplate" TargetType="ListViewItem">
-                        <Border CornerRadius="5" BorderThickness="1" BorderBrush="DarkGray" Background="#FF92C6F9" Padding="2" HorizontalAlignment="Left" Margin="5" Tag="{Binding Value}">
-                            <TextBlock Text="{Binding Name}" Margin="5" />
-                        </Border>
-                    </ControlTemplate>
-                    <Style TargetType="ListViewItem" x:Key="ListViewStyle">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="ListViewItem">
-                                    <Border CornerRadius="5" BorderThickness="1" BorderBrush="DarkGray" Background="WhiteSmoke" Padding="2" HorizontalAlignment="Left" Margin="5" Tag="{Binding Value}">
-                                        <TextBlock Text="{Binding Name}" Margin="5" />
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="IsSelected" Value="true" />
-                                    <Condition Property="Selector.IsSelectionActive" Value="true" />
-                                </MultiTrigger.Conditions>
-                                <Setter Property="Template" Value="{StaticResource SelectedTemplate}" />
-                            </MultiTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ListView.Resources>
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                    </Style>
-                </ListView.ItemContainerStyle>
             </ListView>
             <StackPanel Orientation="Horizontal" Grid.Row="2">
                 <Button VerticalAlignment="Bottom" Content="+" Click="NewProfileButton_Click" Width="50"/>

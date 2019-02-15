@@ -87,5 +87,10 @@ namespace RemoteReceiver
             }
         }
         #endregion
+
+        private void Border_MouseUp_1(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }
