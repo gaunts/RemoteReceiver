@@ -21,10 +21,10 @@ namespace CustomPreferences
     }
 
     [Serializable]
-    public class Profile : INotifyPropertyChanged//, IEquatable<Profile>
+    public class Profile : INotifyPropertyChanged, IEquatable<Profile>
     {
         public List<ButtonConfig> Buttons { get; set; }
-        //public string Id { get; set; }
+        public string Id { get; set; }
         private string name;
         public string Name
         {
@@ -34,15 +34,15 @@ namespace CustomPreferences
 
         public Profile()
         {
-            //Id = Guid.NewGuid().ToString("N");
+            Id = Guid.NewGuid().ToString("N");
             Buttons = new List<ButtonConfig>();
             Name = "New profile";
         }
 
-        //bool IEquatable<Profile>.Equals(Profile other)
-        //{
-        //    return other != null && other.Id == Id;
-        //}
+        bool IEquatable<Profile>.Equals(Profile other)
+        {
+            return other != null && other.Id == Id;
+        }
 
         #region NotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged = delegate { };

@@ -33,7 +33,6 @@ namespace RemoteReceiver
 
         private void HasLoaded(object sender, RoutedEventArgs e)
         {
-            ProfilesList.SelectedItem = Preferences.SelectedProfile;
         }
 
         public ObservableCollection<Profile> LoadedProfilesList { get; set; }
@@ -91,6 +90,22 @@ namespace RemoteReceiver
         private void Border_MouseUp_1(object sender, MouseButtonEventArgs e)
         {
 
+        }
+
+        private async void Listview_Loaded(object sender, RoutedEventArgs e)
+        {
+            ProfilesList.SelectedItem = Preferences.SelectedProfile;
+            ProfilesList.ItemContainerGenerator.StatusChanged += Test;
+
+            await Task.Delay(2000);
+           //ListViewItem item = ProfilesList.item
+            //item.IsSelected = true;
+        }
+
+        private void Test(object sender, EventArgs e)
+        {
+            var item = ProfilesList.ItemContainerGenerator.ContainerFromItem(ProfilesList.SelectedItem);
+            //var b = item.IsSealed;
         }
     }
 }

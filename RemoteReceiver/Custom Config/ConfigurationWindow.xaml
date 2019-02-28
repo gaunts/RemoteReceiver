@@ -59,8 +59,10 @@
                       BorderThickness="0"
                       ItemsSource="{Binding LoadedProfilesList, Mode=OneWay}"
                       x:Name="ProfilesList"
+                      Loaded="Listview_Loaded"
                       SelectionChanged="ProfilesListView_SelectionChanged"
                       ItemContainerStyle="{StaticResource MyContainer}"
+                      SelectionMode="Single"
                       >
             </ListView>
             <StackPanel Orientation="Horizontal" Grid.Row="2">
