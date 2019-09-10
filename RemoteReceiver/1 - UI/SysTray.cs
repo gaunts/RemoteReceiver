@@ -34,7 +34,7 @@ namespace RemoteReceiver
         private static void InitIcon()
         {
             nIcon = new NotifyIcon();
-            StreamResourceInfo sri = System.Windows.Application.GetResourceStream(new Uri("Icons/fuck.ico", UriKind.Relative));
+            StreamResourceInfo sri = System.Windows.Application.GetResourceStream(new Uri("0 - Icons/fuck.ico", UriKind.Relative));
             nIcon.Icon = new System.Drawing.Icon(sri.Stream);
             nIcon.Text = "Fuck you bitch";
         }
@@ -45,8 +45,8 @@ namespace RemoteReceiver
 
             var a = Settings.Default.PropertyValues;
 
-            nIcon.ContextMenu.MenuItems.Add("Launch at windows startup").Click += (s, c) => { Preferences.IsAutoLaunchEnabled = !Preferences.IsAutoLaunchEnabled; UpdateContextMenuChecks(); };
-            nIcon.ContextMenu.MenuItems.Add("Auto detect receiver").Click += (s, c) => { Preferences.IsAutoDetectEnabled = !Preferences.IsAutoDetectEnabled; UpdateContextMenuChecks(); };
+            nIcon.ContextMenu.MenuItems.Add("Launch at windows startup").Click += (s, c) => { PreferencesManager.IsAutoLaunchEnabled = !PreferencesManager.IsAutoLaunchEnabled; UpdateContextMenuChecks(); };
+            nIcon.ContextMenu.MenuItems.Add("Auto detect receiver").Click += (s, c) => { PreferencesManager.IsAutoDetectEnabled = !PreferencesManager.IsAutoDetectEnabled; UpdateContextMenuChecks(); };
             nIcon.ContextMenu.MenuItems.Add("Receiver");
             nIcon.ContextMenu.MenuItems.Add("Configure").Click += (s, c) => { ButtonsConfigurationHelper.ShowConfigurationWindow(); };
             nIcon.ContextMenu.MenuItems.Add("Exit").Click += (s, c) => { nIcon.Dispose(); System.Windows.Application.Current.Shutdown(); };
@@ -54,8 +54,8 @@ namespace RemoteReceiver
 
         private static void UpdateContextMenuChecks()
         {
-            nIcon.ContextMenu.MenuItems[0].Checked = Preferences.IsAutoLaunchEnabled;
-            nIcon.ContextMenu.MenuItems[1].Checked = Preferences.IsAutoDetectEnabled;
+            nIcon.ContextMenu.MenuItems[0].Checked = PreferencesManager.IsAutoLaunchEnabled;
+            nIcon.ContextMenu.MenuItems[1].Checked = PreferencesManager.IsAutoDetectEnabled;
         }
 
         public static void UpdateAvailablePorts()

@@ -13,10 +13,10 @@ using System.Windows;
 
 namespace RemoteReceiver
 {
-    public class Preferences : ApplicationSettingsBase
+    public class PreferencesManager : ApplicationSettingsBase
     {
-        private static readonly Preferences _instance;
-        public static Preferences Instance
+        private static readonly PreferencesManager _instance;
+        public static PreferencesManager Instance
         {
             get
             {
@@ -24,12 +24,12 @@ namespace RemoteReceiver
             }
         }
 
-        static Preferences()
+        static PreferencesManager()
         {
-            _instance = new Preferences();
+            _instance = new PreferencesManager();
         }
 
-        private Preferences()
+        private PreferencesManager()
         {
 
         }

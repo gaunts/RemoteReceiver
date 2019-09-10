@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2047
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29230.47
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteReceiver", "RemoteReceiver\RemoteReceiver.csproj", "{71282395-2D02-4E74-ADB8-88CDFE3A327C}"
 EndProject
@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RemoteInterface", "RemoteIn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServerNetFramework", "WebServerNetFramework\WebServerNetFramework.csproj", "{35B5604C-FD36-4F3D-AA52-5AAF6035D8CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomPreferences", "CustomPreferences\CustomPreferences.csproj", "{0013706B-FEE2-4723-9C6D-1A73AF668AAB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Profiles", "CustomPreferences\Profiles.csproj", "{0013706B-FEE2-4723-9C6D-1A73AF668AAB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "Utils\Utils.csproj", "{B22D95FD-99EF-42AC-84BC-CEBBBA281649}"
 EndProject

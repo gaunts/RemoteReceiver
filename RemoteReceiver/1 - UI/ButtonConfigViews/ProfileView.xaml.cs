@@ -72,9 +72,7 @@ namespace RemoteReceiver
             if (Box.Text.Length > 0)
             {
                  DisplayedProfile.Name = Box.Text;
-                Preferences.SaveProfiles();
-                //Settings.Default.Reload();
-                //}
+                PreferencesManager.SaveProfiles();
             }
             Block.Visibility = Visibility.Visible;
             Box.Visibility = Visibility.Collapsed;

@@ -27,7 +27,7 @@ namespace RemoteReceiver
 
         public static void RefreshAutoDetectPreference()
         {
-            if (Preferences.IsAutoDetectEnabled && _devicePort == null)
+            if (PreferencesManager.IsAutoDetectEnabled && _devicePort == null)
                 FindDevice(SerialPortService.GetAvailableSerialPorts());
         }
 
@@ -50,7 +50,7 @@ namespace RemoteReceiver
                 _connectedOnce = false;
                 return;
             }
-            else if (e.EventType == EventType.Insertion && _devicePort == null && Preferences.IsAutoDetectEnabled)
+            else if (e.EventType == EventType.Insertion && _devicePort == null && PreferencesManager.IsAutoDetectEnabled)
             {
                 Debug.WriteLine("added something");
                 await Task.Delay(6000);

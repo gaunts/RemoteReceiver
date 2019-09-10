@@ -80,28 +80,28 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Custom Config\ButtonActionCreation.xaml.cs">
+    <Compile Include="1 - UI\ButtonConfigViews\ButtonActionCreation.xaml.cs">
       <DependentUpon>ButtonActionCreation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Custom Config\ButtonView.xaml.cs">
+    <Compile Include="1 - UI\ButtonConfigViews\ButtonView.xaml.cs">
       <DependentUpon>ButtonView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Custom Config\ButtonsConfigurationHelper.cs" />
-    <Compile Include="CommandExecution.cs" />
-    <Compile Include="Custom Config\ConfigurationWindow.xaml.cs">
+    <Compile Include="1 - UI\ButtonConfigViews\ButtonsConfigurationHelper.cs" />
+    <Compile Include="2 - CommandExecution\SocketCommandExecution.cs" />
+    <Compile Include="1 - UI\ButtonConfigViews\ConfigurationWindow.xaml.cs">
       <DependentUpon>ConfigurationWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Custom Config\ProfileView.xaml.cs">
+    <Compile Include="1 - UI\ButtonConfigViews\ProfileView.xaml.cs">
       <DependentUpon>ProfileView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="EnumCombobox.cs" />
-    <Compile Include="Preferences.cs" />
-    <Compile Include="Serial\RemoteSerialListener.cs" />
-    <Compile Include="Serial\SerialPortService.cs" />
-    <Compile Include="SysTray.cs" />
+    <Compile Include="1 - UI\EnumCombobox.cs" />
+    <Compile Include="PreferencesManager.cs" />
+    <Compile Include="3 - Serial\RemoteSerialListener.cs" />
+    <Compile Include="3 - Serial\SerialPortService.cs" />
+    <Compile Include="1 - UI\SysTray.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Socket\RemoteWebListener.cs" />
+    <Compile Include="3 - Socket\RemoteWebListener.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -143,9 +143,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CustomPreferences\CustomPreferences.csproj">
+    <ProjectReference Include="..\CustomPreferences\Profiles.csproj">
       <Project>{0013706b-fee2-4723-9c6d-1a73af668aab}</Project>
-      <Name>CustomPreferences</Name>
+      <Name>Profiles</Name>
     </ProjectReference>
     <ProjectReference Include="..\RemoteInterface\RemoteInterface.csproj">
       <Project>{f028f2b3-ba77-4cc7-904d-8af228d32524}</Project>
@@ -157,24 +157,24 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\fuck.ico">
+    <Resource Include="0 - Icons\fuck.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Custom Config\ButtonActionCreation.xaml">
+    <Page Include="1 - UI\ButtonConfigViews\ButtonActionCreation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Custom Config\ButtonView.xaml">
+    <Page Include="1 - UI\ButtonConfigViews\ButtonView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Custom Config\ConfigurationWindow.xaml">
+    <Page Include="1 - UI\ButtonConfigViews\ConfigurationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Custom Config\ProfileView.xaml">
+    <Page Include="1 - UI\ButtonConfigViews\ProfileView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

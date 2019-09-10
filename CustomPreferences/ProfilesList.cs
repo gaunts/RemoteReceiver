@@ -10,14 +10,8 @@ using Utils;
 namespace CustomPreferences
 {
     [Serializable]
-    public class ProfilesList
+    public class ProfilesList : List<Profile>
     {
-        public readonly List<Profile> Profiles = null;
-
-        public ProfilesList()
-        {
-            Profiles = new List<Profile>();
-        }
     }
 
     [Serializable]
@@ -41,7 +35,7 @@ namespace CustomPreferences
 
         bool IEquatable<Profile>.Equals(Profile other)
         {
-            return other != null && other.Id == Id;
+            return other != null && String.Equals(this.Id, other.Id);
         }
 
         #region NotifyPropertyChanged

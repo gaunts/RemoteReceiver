@@ -26,7 +26,7 @@ namespace RemoteReceiver
     {
         public ConfigurationWindow()
         {
-            LoadedProfilesList = new ObservableCollection<Profile>(Preferences.CustomProfiles.Profiles);
+            LoadedProfilesList = new ObservableCollection<Profile>(PreferencesManager.CustomProfiles);
             InitializeComponent();
             Loaded += HasLoaded;
         }
@@ -68,7 +68,7 @@ namespace RemoteReceiver
         private void ProfilesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             LoadedButtonsList = ProfilesList.SelectedItem != null ? new ObservableCollection<ButtonConfig>(((Profile)ProfilesList.SelectedItem).Buttons) : new ObservableCollection<ButtonConfig>();
-            Preferences.SelectedProfile = (Profile)ProfilesList.SelectedItem;
+            PreferencesManager.SelectedProfile = (Profile)ProfilesList.SelectedItem;
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -92,12 +92,14 @@ namespace RemoteReceiver
 
         }
 
-        private async void Listview_Loaded(object sender, RoutedEventArgs e)
+        private void Listview_Loaded(object sender, RoutedEventArgs e)
         {
-            ProfilesList.SelectedItem = Preferences.SelectedProfile;
+            ProfilesList.SelectedValuePath = nameof(Profile.Id);
+            ProfilesList.SelectedValue = PreferencesManager.SelectedProfile.Id;
+
+            //ProfilesList.SelectedItem = PreferencesManager.SelectedProfile;
             ProfilesList.ItemContainerGenerator.StatusChanged += Test;
 
-            await Task.Delay(2000);
            //ListViewItem item = ProfilesList.item
             //item.IsSelected = true;
         }

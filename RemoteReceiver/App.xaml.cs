@@ -24,7 +24,7 @@ namespace RemoteReceiver
 
             AppDomain.CurrentDomain.AssemblyResolve += OnResolveAssembly;
             base.OnStartup(e);
-            Preferences.CorrectAutoLaunchPath();
+            PreferencesManager.CorrectAutoLaunchPath();
             SysTray.Init();
             RemoteWebListener.StartListening();
             RemoteSerialListener.StartListening();

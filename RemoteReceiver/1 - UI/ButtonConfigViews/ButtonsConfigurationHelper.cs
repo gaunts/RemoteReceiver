@@ -21,14 +21,14 @@ namespace RemoteReceiver
         internal static Profile AddProfile()
         {
             Profile profile = new Profile();
-            Preferences.CustomProfiles.Profiles.Add(profile);
+            PreferencesManager.CustomProfiles.Add(profile);
             Settings.Default.Save();
             return profile;
         }
 
         internal static void DeleteProfile(Profile profile)
         {
-            Preferences.CustomProfiles.Profiles.Remove(profile);
+            PreferencesManager.CustomProfiles.Remove(profile);
             Settings.Default.Save();
         }
 
