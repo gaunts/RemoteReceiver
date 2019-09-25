@@ -1,4 +1,4 @@
-﻿using CustomPreferences;
+﻿using Profiles;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,9 +33,27 @@ namespace RemoteReceiver
         }
         #endregion
 
-        public ButtonActionCreation()
+        private ButtonConfigFactory buttonFactory;
+        private Profile profile;
+
+        private AButtonConfig buttonConfig;
+        public AButtonConfig ButtonConfig
         {
-            this.ButtonConfig = new KeyPressButtonConfig();
+            get { return buttonConfig; }
+            set { buttonConfig = value; NotifyPropertyChanged(nameof(ButtonConfig)); }
+        }
+
+        public ButtonConfigType ActionType
+        {
+            get { return (ButtonConfigType)GetValue(ActionTypeProperty); }
+            set { SetValue(ActionTypeProperty, value); }
+        }
+
+        public ButtonActionCreation(Profile profile)
+        {
+            this.profile = profile;
+            this.buttonFactory = new ButtonConfigFactory();
+            this.ButtonConfig = buttonFactory.BuildButtonConfig(ButtonConfigType.KeyPress);
             InitializeComponent();
         }
 
@@ -49,24 +67,14 @@ namespace RemoteReceiver
 
         private static void ActionTypePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ButtonActionCreation window = d as ButtonActionCreation;
+            ButtonActionCreation dependencyObject = d as ButtonActionCreation;
             ButtonConfigType configType = (ButtonConfigType)e.NewValue;
-            window.ButtonConfig = configType == ButtonConfigType.KeyPress ? (ButtonConfig)new KeyPressButtonConfig() : new CommandButtonConfig();
+            dependencyObject.ButtonConfig = dependencyObject.buttonFactory.BuildButtonConfig(configType);
         }
 
-        public ButtonConfigType ActionType
+        private void SaveButtonAction(object sender, RoutedEventArgs e)
         {
-            get { return (ButtonConfigType)GetValue(ActionTypeProperty); }
-            set { SetValue(ActionTypeProperty, value); }
+            ConfigurationHelper.AddButtonToProfile(this.ButtonConfig, this.profile);
         }
-
-        private ButtonConfig buttonConfig;
-
-        public ButtonConfig ButtonConfig
-        {
-            get { return buttonConfig; }
-            set { buttonConfig = value; NotifyPropertyChanged(nameof(ButtonConfig)); }
-        }
-
     }
 }

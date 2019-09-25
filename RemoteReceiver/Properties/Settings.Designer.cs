@@ -49,9 +49,9 @@ namespace RemoteReceiver.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::CustomPreferences.ProfilesList CustomProfiles {
+        public global::Profiles.ProfilesList CustomProfiles {
             get {
-                return ((global::CustomPreferences.ProfilesList)(this["CustomProfiles"]));
+                return ((global::Profiles.ProfilesList)(this["CustomProfiles"]));
             }
             set {
                 this["CustomProfiles"] = value;
@@ -60,9 +60,9 @@ namespace RemoteReceiver.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::CustomPreferences.Profile SelectedProfile {
+        public global::Profiles.Profile SelectedProfile {
             get {
-                return ((global::CustomPreferences.Profile)(this["SelectedProfile"]));
+                return ((global::Profiles.Profile)(this["SelectedProfile"]));
             }
             set {
                 this["SelectedProfile"] = value;

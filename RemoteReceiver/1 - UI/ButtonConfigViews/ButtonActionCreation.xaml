@@ -4,11 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RemoteReceiver"
+        xmlns:converters="clr-namespace:RemoteReceiver.Converters"
         mc:Ignorable="d"
         Title="ButtonActionCreation" Height="200" Width="500"
         ResizeMode="NoResize"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         >
+
+    <Window.Resources>
+        <converters:EnumConverter x:Key="EnumConverter"/>
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -31,13 +37,13 @@
             <TextBox Text="{Binding ButtonConfig.Name, Mode=TwoWay}" Grid.Row="1"/>
 
             <TextBlock Text="Action type" Grid.Column="1"/>
-            <local:EnumComboBox EnumValue="{Binding ActionType, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"/>
+            <local:EnumComboBox EnumValue="{Binding ActionType, Mode=TwoWay, Converter={StaticResource EnumConverter}}" Grid.Row="1" Grid.Column="1"/>
 
             <TextBlock Text="Action" Grid.Column="2"/>
             <local:EnumComboBox EnumValue="{Binding ButtonConfig.Value, Mode=TwoWay}" Grid.Row="1" Grid.Column="2"/>
         </Grid>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Bottom" Margin="10">
-            <Button Content="OK" Width="100"/>
+            <Button Content="OK" Width="100" Click="SaveButtonAction"/>
         </StackPanel>
     </Grid>
 </Window>

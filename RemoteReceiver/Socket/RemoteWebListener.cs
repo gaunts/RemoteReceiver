@@ -81,7 +81,7 @@ namespace RemoteReceiver
             }
             catch(SocketException e)
             {
-                return;
+                Console.WriteLine(e.ToString());
             }
 
             Debug.WriteLine("receive : {0}", bytesRead);
@@ -97,7 +97,7 @@ namespace RemoteReceiver
                     Debug.WriteLine("Read {0} bytes from socket. \n Data : {1}",
                         content.Length, content);
                     if (Enum.TryParse(content, out RemoteCommand command))
-                        CommandExecution.ExecuteCommand(command);
+                        SocketCommandExecution.ExecuteCommand(command);
                     state.sb = new StringBuilder();
                 }
 

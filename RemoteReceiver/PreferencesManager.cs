@@ -1,5 +1,4 @@
-﻿using CustomPreferences;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using RemoteInterface;
 using RemoteReceiver.Properties;
 using System;
@@ -98,13 +97,13 @@ namespace RemoteReceiver
             }
         }
 
-        public static ProfilesList CustomProfiles
+        public static Model.Profiles.ProfilesList CustomProfiles
         {
             get
             {
                 if (Settings.Default.CustomProfiles == null)
                 {
-                    Settings.Default.CustomProfiles = new ProfilesList();
+                    Settings.Default.CustomProfiles = new Model.Profiles.ProfilesList();
                     Settings.Default.Save();
                 }
                 return Settings.Default.CustomProfiles;
@@ -112,7 +111,7 @@ namespace RemoteReceiver
             set { Settings.Default.CustomProfiles = value; Settings.Default.Save(); }
         }
 
-        public static Profile SelectedProfile
+        public static Model.Profiles.Profile SelectedProfile
         {
             get => Settings.Default.SelectedProfile;
             set { Settings.Default.SelectedProfile = value; Settings.Default.Save(); }

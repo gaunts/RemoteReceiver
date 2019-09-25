@@ -63,7 +63,7 @@ namespace RemoteReceiver
             }
             catch (ManagementException err)
             {
-
+                Debug.WriteLine($"{err.Message}");
             }
         }
 

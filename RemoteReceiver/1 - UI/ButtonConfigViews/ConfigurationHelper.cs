@@ -1,4 +1,4 @@
-﻿using CustomPreferences;
+﻿using Profiles;
 using RemoteInterface;
 using RemoteReceiver.Properties;
 using System;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RemoteReceiver
 {
-    public class ButtonsConfigurationHelper : ApplicationSettingsBase
+    public class ConfigurationHelper
     {
         public static void ShowConfigurationWindow()
         {
@@ -26,16 +26,16 @@ namespace RemoteReceiver
             return profile;
         }
 
+        internal static void AddButtonToProfile(AButtonConfig button, Profile profile)
+        {
+            profile.Buttons.Add(button);
+            Settings.Default.Save();
+        }
+
         internal static void DeleteProfile(Profile profile)
         {
             PreferencesManager.CustomProfiles.Remove(profile);
             Settings.Default.Save();
-        }
-
-        internal static void CreateButtonForProfile(Profile selectedItem)
-        {
-            ButtonActionCreation window = new ButtonActionCreation();
-            window.ShowDialog();
         }
     }
 }

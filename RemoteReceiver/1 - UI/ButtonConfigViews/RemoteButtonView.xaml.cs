@@ -1,4 +1,4 @@
-﻿using CustomPreferences;
+﻿using Profiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,25 +19,25 @@ namespace RemoteReceiver
     /// <summary>
     /// Interaction logic for ButtonView.xaml
     /// </summary>
-    public partial class ButtonView : UserControl
+    public partial class RemoteButtonView : Grid
     {
-        public ButtonView()
+        public RemoteButtonView()
         {
             InitializeComponent();
         }
 
         public static readonly DependencyProperty DisplayedButtonConfigProperty = DependencyProperty.RegisterAttached(
             "DisplayedButtonConfig",
-            typeof(ButtonConfig),
+            typeof(AButtonConfig),
             typeof(ProfileView),
              new PropertyMetadata(
                 null,
                 null)
             );
 
-        public ButtonConfig DisplayedButtonConfig
+        public AButtonConfig DisplayedButtonConfig
         {
-            get { return (ButtonConfig)GetValue(DisplayedButtonConfigProperty); }
+            get { return (AButtonConfig)GetValue(DisplayedButtonConfigProperty); }
             set { SetValue(DisplayedButtonConfigProperty, value); }
         }
     }

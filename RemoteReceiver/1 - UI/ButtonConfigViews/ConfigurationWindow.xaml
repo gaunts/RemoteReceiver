@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RemoteReceiver"
-        xmlns:customPreferences="clr-namespace:CustomPreferences;assembly=CustomPreferences"
+        xmlns:customPreferences="clr-namespace:Profiles;assembly=CustomPreferences"
         mc:Ignorable="d"
         Title="ConfigurationWindow" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
@@ -34,7 +34,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="ButtonTemplate" DataType="customPreferences:ButtonConfig">
-            <local:ButtonView DisplayedButtonConfig="{Binding}"/>
+            <local:RemoteButtonView DisplayedButtonConfig="{Binding}"/>
         </DataTemplate>
 
     </Window.Resources>
@@ -58,7 +58,7 @@
             <ListView Grid.Row="1" 
                       BorderThickness="0"
                       ItemsSource="{Binding LoadedProfilesList, Mode=OneWay}"
-                      x:Name="ProfilesList"
+                      x:Name="ProfilesListView"
                       Loaded="Listview_Loaded"
                       SelectionChanged="ProfilesListView_SelectionChanged"
                       ItemContainerStyle="{StaticResource MyContainer}"

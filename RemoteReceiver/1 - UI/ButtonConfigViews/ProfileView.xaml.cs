@@ -1,4 +1,4 @@
-﻿using CustomPreferences;
+﻿using Profiles;
 using RemoteReceiver.Properties;
 using System;
 using System.Collections.Generic;
