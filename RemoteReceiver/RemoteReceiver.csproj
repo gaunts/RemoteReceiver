@@ -77,14 +77,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="1 - UI\Converters\EnumConverter.cs" />
+    <Compile Include="2 - ViewModel\ButtonConfigViewModel.cs" />
     <Compile Include="2 - ViewModel\ConfigurationWindowViewModel.cs" />
-    <Compile Include="3 - Model\ButtonConfigs\AButtonConfig.cs" />
-    <Compile Include="3 - Model\ButtonConfigs\ButtonConfigFactory.cs" />
-    <Compile Include="3 - Model\ButtonConfigs\CommandButtonConfig.cs" />
-    <Compile Include="3 - Model\ButtonConfigs\KeyPressButtonConfig.cs" />
-    <Compile Include="3 - Model\ButtonConfigs\MouseButtonConfig.cs" />
-    <Compile Include="3 - Model\Profiles\Profile.cs" />
-    <Compile Include="3 - Model\Profiles\ProfilesList.cs" />
+    <Compile Include="2 - ViewModel\ProfileViewModel.cs" />
+    <Compile Include="2 - ViewModel\ViewModelBase.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -92,7 +88,7 @@
     <Compile Include="1 - UI\ButtonConfigViews\ButtonActionCreation.xaml.cs">
       <DependentUpon>ButtonActionCreation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="1 - UI\ButtonConfigViews\RemoteButtonView.xaml.cs">
+    <Compile Include="1 - UI\ButtonConfigViews\DataTemplates\RemoteButtonView.xaml.cs">
       <DependentUpon>RemoteButtonView.xaml</DependentUpon>
     </Compile>
     <Compile Include="1 - UI\ButtonConfigViews\ConfigurationHelper.cs" />
@@ -100,7 +96,7 @@
     <Compile Include="1 - UI\ButtonConfigViews\ConfigurationWindow.xaml.cs">
       <DependentUpon>ConfigurationWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="1 - UI\ButtonConfigViews\ProfileView.xaml.cs">
+    <Compile Include="1 - UI\ButtonConfigViews\DataTemplates\ProfileView.xaml.cs">
       <DependentUpon>ProfileView.xaml</DependentUpon>
     </Compile>
     <Compile Include="1 - UI\EnumCombobox.cs" />
@@ -110,6 +106,7 @@
     <Compile Include="1 - UI\SysTray.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Settings.cs" />
     <Compile Include="Socket\RemoteWebListener.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -156,9 +153,13 @@
       <Project>{f028f2b3-ba77-4cc7-904d-8af228d32524}</Project>
       <Name>RemoteInterface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Utils\Utils.csproj">
-      <Project>{b22d95fd-99ef-42ac-84bc-cebbba281649}</Project>
-      <Name>Utils</Name>
+    <ProjectReference Include="..\RemoteReceiver.Model\RemoteReceiver.Model.csproj">
+      <Project>{753f98cb-8620-4e59-9b2b-b2b19262e41a}</Project>
+      <Name>RemoteReceiver.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RemoteReceiver.ViewModel\RemoteReceiver.ViewModel.csproj">
+      <Project>{079a401e-8866-425c-8daa-c409a383209d}</Project>
+      <Name>RemoteReceiver.ViewModel</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -171,7 +172,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="1 - UI\ButtonConfigViews\RemoteButtonView.xaml">
+    <Page Include="1 - UI\ButtonConfigViews\DataTemplates\RemoteButtonView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -179,12 +180,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="1 - UI\ButtonConfigViews\ProfileView.xaml">
+    <Page Include="1 - UI\ButtonConfigViews\DataTemplates\ProfileView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="NewFolder1\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterResolveReferences">
     <ItemGroup>

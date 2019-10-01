@@ -1,4 +1,4 @@
-﻿using Profiles;
+﻿using RemoteReceiver.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -74,7 +74,7 @@ namespace RemoteReceiver
 
         private void SaveButtonAction(object sender, RoutedEventArgs e)
         {
-            ConfigurationHelper.AddButtonToProfile(this.ButtonConfig, this.profile);
+            //ConfigurationHelper.AddButtonToProfile(this.ButtonConfig, this.profile);
         }
     }
 }

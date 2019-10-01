@@ -4,20 +4,29 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RemoteReceiver"
-        xmlns:customPreferences="clr-namespace:Profiles;assembly=CustomPreferences"
+        xmlns:viewmodel="clr-namespace:RemoteReceiver.ViewModel"
         mc:Ignorable="d"
         Title="ConfigurationWindow" Height="450" Width="800"
-        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         >
+        <!--DataContext="{Binding RelativeSource={RelativeSource Self}}"-->
 
+    <Window.DataContext>
+        <viewmodel:ConfigurationWindowViewModel x:Name="ConfigurationWindowVM"/>
+    </Window.DataContext>
+    
     <Window.Resources>
-        <Style x:Key="MyContainer" TargetType="{x:Type ListViewItem}">
-            <Setter Property="Template">
+        <Style x:Key="ProfileViewSelectionStyle" TargetType="{x:Type ListViewItem}">
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="true">
+                    <Setter Property="Background" Value="Yellow"/>
+                </Trigger>
+            </Style.Triggers>
+            <!--<Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListViewItem">
-                        <Border BorderThickness="1" Background="White" x:Name="MainBorder">
+                        --><!--<Border BorderThickness="1" Background="White" x:Name="MainBorder">
                             <local:ProfileView DisplayedProfile="{Binding}"/>
-                        </Border>
+                        </Border>--><!--
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="true">
                                 <Setter TargetName="MainBorder" Property="Background" Value="Yellow"/>
@@ -25,15 +34,15 @@
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
-            </Setter>
+            </Setter>-->
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         </Style>
-        
-        <DataTemplate x:Key="ProfileTemplate" DataType="customPreferences:Profile">
+
+        <DataTemplate x:Key="ProfileTemplate" DataType="viewmodel:ProfileViewModel">
             <local:ProfileView DisplayedProfile="{Binding}"/>
         </DataTemplate>
 
-        <DataTemplate x:Key="ButtonTemplate" DataType="customPreferences:ButtonConfig">
+        <DataTemplate x:Key="ButtonTemplate" DataType="viewmodel:ButtonConfigViewModel">
             <local:RemoteButtonView DisplayedButtonConfig="{Binding}"/>
         </DataTemplate>
 
@@ -57,11 +66,12 @@
             </StackPanel>
             <ListView Grid.Row="1" 
                       BorderThickness="0"
-                      ItemsSource="{Binding LoadedProfilesList, Mode=OneWay}"
+                      ItemsSource="{Binding Profiles, Mode=OneWay}"
                       x:Name="ProfilesListView"
                       Loaded="Listview_Loaded"
                       SelectionChanged="ProfilesListView_SelectionChanged"
-                      ItemContainerStyle="{StaticResource MyContainer}"
+                      ItemContainerStyle="{StaticResource ProfileViewSelectionStyle}"
+                      ItemTemplate="{StaticResource ProfileTemplate}"
                       SelectionMode="Single"
                       >
             </ListView>

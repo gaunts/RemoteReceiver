@@ -1,4 +1,4 @@
-﻿using Profiles;
+﻿using RemoteReceiver.ViewModel;
 using RemoteInterface;
 using RemoteReceiver.Properties;
 using System;
@@ -18,24 +18,16 @@ namespace RemoteReceiver
             window.Show();
         }
 
-        internal static Profile AddProfile()
-        {
-            Profile profile = new Profile();
-            PreferencesManager.CustomProfiles.Add(profile);
-            Settings.Default.Save();
-            return profile;
-        }
+        //internal static void AddButtonToProfile(AButtonConfig button, Profile profile)
+        //{
+        //    profile.Buttons.Add(button);
+        //    Settings.Default.Save();
+        //}
 
-        internal static void AddButtonToProfile(AButtonConfig button, Profile profile)
-        {
-            profile.Buttons.Add(button);
-            Settings.Default.Save();
-        }
-
-        internal static void DeleteProfile(Profile profile)
-        {
-            PreferencesManager.CustomProfiles.Remove(profile);
-            Settings.Default.Save();
-        }
+        //internal static void DeleteProfile(Profile profile)
+        //{
+        //    PreferencesManager.CustomProfiles.Remove(profile);
+        //    Settings.Default.Save();
+        //}
     }
 }

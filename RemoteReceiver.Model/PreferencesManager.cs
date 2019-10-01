@@ -1,6 +1,4 @@
 ﻿using Microsoft.Win32;
-using RemoteInterface;
-using RemoteReceiver.Properties;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -10,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace RemoteReceiver
+namespace RemoteReceiver.Model
 {
-    public class PreferencesManager : ApplicationSettingsBase
+    public class PreferencesManager
     {
         private static readonly PreferencesManager _instance;
         public static PreferencesManager Instance
@@ -64,7 +62,6 @@ namespace RemoteReceiver
                         AutoLaunchRegistryKey.DeleteValue(CurrentAssembly.GetName().Name);
                         IsAutoLaunchEnabled = true;
                     }
-
                 }
             }
             catch { }
@@ -97,29 +94,23 @@ namespace RemoteReceiver
             }
         }
 
-        public static Model.Profiles.ProfilesList CustomProfiles
+        public static Model.ProfilesList CustomProfiles
         {
             get
             {
-                if (Settings.Default.CustomProfiles == null)
+                if (Settings.Default.ProfilesList == null)
                 {
-                    Settings.Default.CustomProfiles = new Model.Profiles.ProfilesList();
+                    Settings.Default.ProfilesList = new Model.SerializableProfilesList();
                     Settings.Default.Save();
                 }
-                return Settings.Default.CustomProfiles;
+                return new ProfilesList(Settings.Default.ProfilesList);
             }
-            set { Settings.Default.CustomProfiles = value; Settings.Default.Save(); }
         }
 
-        public static Model.Profiles.Profile SelectedProfile
+        public static Model.Profile SelectedProfile
         {
             get => Settings.Default.SelectedProfile;
             set { Settings.Default.SelectedProfile = value; Settings.Default.Save(); }
-        }
-
-        public static void SaveProfiles()
-        {
-            CustomProfiles = CustomProfiles;
         }
     }
 }

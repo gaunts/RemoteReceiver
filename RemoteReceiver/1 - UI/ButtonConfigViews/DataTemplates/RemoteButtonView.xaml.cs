@@ -1,4 +1,4 @@
-﻿using Profiles;
+﻿using RemoteReceiver.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,16 +28,16 @@ namespace RemoteReceiver
 
         public static readonly DependencyProperty DisplayedButtonConfigProperty = DependencyProperty.RegisterAttached(
             "DisplayedButtonConfig",
-            typeof(AButtonConfig),
+            typeof(ButtonConfigViewModel),
             typeof(ProfileView),
              new PropertyMetadata(
                 null,
                 null)
             );
 
-        public AButtonConfig DisplayedButtonConfig
+        public ButtonConfigViewModel DisplayedButtonConfig
         {
-            get { return (AButtonConfig)GetValue(DisplayedButtonConfigProperty); }
+            get { return (ButtonConfigViewModel)GetValue(DisplayedButtonConfigProperty); }
             set { SetValue(DisplayedButtonConfigProperty, value); }
         }
     }

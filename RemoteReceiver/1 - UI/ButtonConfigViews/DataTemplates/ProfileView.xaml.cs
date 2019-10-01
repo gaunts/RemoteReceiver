@@ -1,4 +1,4 @@
-﻿using Profiles;
+﻿using RemoteReceiver.ViewModel;
 using RemoteReceiver.Properties;
 using System;
 using System.Collections.Generic;
@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using RemoteReceiver.Model;
 
 namespace RemoteReceiver
 {
@@ -42,16 +43,16 @@ namespace RemoteReceiver
 
         public static readonly DependencyProperty DisplayedProfileProperty = DependencyProperty.RegisterAttached(
             "DisplayedProfile",
-            typeof(Profile),
+            typeof(ProfileViewModel),
             typeof(ProfileView),
              new PropertyMetadata(
                 null,
                 null)
             );
 
-        public Profile DisplayedProfile
+        public ProfileViewModel DisplayedProfile
         {
-            get { return (Profile)GetValue(DisplayedProfileProperty); }
+            get { return (ProfileViewModel)GetValue(DisplayedProfileProperty); }
             set { SetValue(DisplayedProfileProperty, value); }
         }
 
@@ -71,8 +72,8 @@ namespace RemoteReceiver
         {
             if (Box.Text.Length > 0)
             {
-                 DisplayedProfile.Name = Box.Text;
-                PreferencesManager.SaveProfiles();
+                DisplayedProfile.Name = Box.Text;
+                //PreferencesManager.SaveProfiles();
             }
             Block.Visibility = Visibility.Visible;
             Box.Visibility = Visibility.Collapsed;

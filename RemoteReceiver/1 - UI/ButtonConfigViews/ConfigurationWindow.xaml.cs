@@ -1,4 +1,4 @@
-﻿using Profiles;
+﻿using RemoteReceiver.ViewModel;
 using RemoteInterface;
 using RemoteReceiver.Properties;
 using System;
@@ -26,7 +26,7 @@ namespace RemoteReceiver
     {
         public ConfigurationWindow()
         {
-            LoadedProfilesList = new ObservableCollection<Profile>(PreferencesManager.CustomProfiles);
+            //LoadedProfilesList = new ObservableCollection<ProfileViewModel>(PreferencesManager.CustomProfiles);
             InitializeComponent();
             Loaded += HasLoaded;
         }
@@ -35,27 +35,27 @@ namespace RemoteReceiver
         {
         }
 
-        public ObservableCollection<Profile> LoadedProfilesList { get; set; }
-        public ObservableCollection<AButtonConfig> LoadedButtonsList { get; set; }
+        //public ObservableCollection<Profile> LoadedProfilesList { get; set; }
+        //public ObservableCollection<AButtonConfig> LoadedButtonsList { get; set; }
 
         #region Buttons
 
         private void NewProfileButton_Click(object sender, RoutedEventArgs e)
         {
-            LoadedProfilesList.Add(ConfigurationHelper.AddProfile());
+            ConfigurationWindowVM.AddNewProfile();
         }
 
         private void DeleteProfileButton_Click(object sender, RoutedEventArgs e)
         {
-            var profile = ProfilesListView.SelectedItem as Profile;
-            ConfigurationHelper.DeleteProfile(profile);
-            LoadedProfilesList.Remove(profile);
+            //var profile = ProfilesListView.SelectedItem as Profile;
+            //ConfigurationHelper.DeleteProfile(profile);
+            //LoadedProfilesList.Remove(profile);
         }
 
         private void NewButtonConfig_Click(object sender, RoutedEventArgs e)
         {
-            ButtonActionCreation window = new ButtonActionCreation((Profile)ProfilesListView.SelectedItem);
-            window.ShowDialog();
+            //ButtonActionCreation window = new ButtonActionCreation((Profile)ProfilesListView.SelectedItem);
+            //window.ShowDialog();
         }
 
         private void DeleteButtonConfig_Click(object sender, RoutedEventArgs e)
@@ -67,8 +67,8 @@ namespace RemoteReceiver
 
         private void ProfilesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            LoadedButtonsList = ProfilesListView.SelectedItem != null ? new ObservableCollection<AButtonConfig>(((Profile)ProfilesListView.SelectedItem).Buttons) : new ObservableCollection<AButtonConfig>();
-            PreferencesManager.SelectedProfile = (Profile)ProfilesListView.SelectedItem;
+            //LoadedButtonsList = ProfilesListView.SelectedItem != null ? new ObservableCollection<AButtonConfig>(((Profile)ProfilesListView.SelectedItem).Buttons) : new ObservableCollection<AButtonConfig>();
+            //PreferencesManager.SelectedProfile = (Profile)ProfilesListView.SelectedItem;
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -93,20 +93,13 @@ namespace RemoteReceiver
 
         private void Listview_Loaded(object sender, RoutedEventArgs e)
         {
-            //ProfilesList.SelectedValuePath = nameof(Profile.Id);
-            //ProfilesList.SelectedValue = PreferencesManager.SelectedProfile.Id;
-
-            ProfilesListView.SelectedItem = PreferencesManager.SelectedProfile;
-            ProfilesListView.ItemContainerGenerator.StatusChanged += Test;
-
-           //ListViewItem item = ProfilesList.item
-            //item.IsSelected = true;
+            //ProfilesListView.SelectedItem = PreferencesManager.SelectedProfile;
+            //ProfilesListView.ItemContainerGenerator.StatusChanged += Test;
         }
 
         private void Test(object sender, EventArgs e)
         {
             var item = ProfilesListView.ItemContainerGenerator.ContainerFromItem(ProfilesListView.SelectedItem);
-            //var b = item.IsSealed;
         }
     }
 }

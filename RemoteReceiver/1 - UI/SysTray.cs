@@ -10,6 +10,7 @@ using System.Windows.Resources;
 using System.Windows;
 using RemoteReceiver.Properties;
 using static System.Windows.Forms.Menu;
+using RemoteReceiver.Model;
 
 namespace RemoteReceiver
 {
@@ -34,7 +35,7 @@ namespace RemoteReceiver
         private static void InitIcon()
         {
             nIcon = new NotifyIcon();
-            StreamResourceInfo sri = System.Windows.Application.GetResourceStream(new Uri("0 - Icons/fuck.ico", UriKind.Relative));
+            StreamResourceInfo sri = System.Windows.Application.GetResourceStream(new Uri("Icons/fuck.ico", UriKind.Relative));
             nIcon.Icon = new System.Drawing.Icon(sri.Stream);
             nIcon.Text = "Fuck you bitch";
         }

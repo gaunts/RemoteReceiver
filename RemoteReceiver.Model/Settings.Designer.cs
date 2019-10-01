@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RemoteReceiver.Properties {
+namespace RemoteReceiver.Model {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -25,36 +25,12 @@ namespace RemoteReceiver.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AutoDetect {
+        public global::RemoteReceiver.Model.SerializableProfilesList ProfilesList {
             get {
-                return ((bool)(this["AutoDetect"]));
+                return ((global::RemoteReceiver.Model.SerializableProfilesList)(this["ProfilesList"]));
             }
             set {
-                this["AutoDetect"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool AutoLaunch {
-            get {
-                return ((bool)(this["AutoLaunch"]));
-            }
-            set {
-                this["AutoLaunch"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::RemoteReceiver.Model.SerializableProfilesList CustomProfiles {
-            get {
-                return ((global::RemoteReceiver.Model.SerializableProfilesList)(this["CustomProfiles"]));
-            }
-            set {
-                this["CustomProfiles"] = value;
+                this["ProfilesList"] = value;
             }
         }
         
@@ -71,13 +47,23 @@ namespace RemoteReceiver.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Setting {
+        public bool AutoDetect {
             get {
-                return ((string)(this["Setting"]));
+                return ((bool)(this["AutoDetect"]));
             }
             set {
-                this["Setting"] = value;
+                this["AutoDetect"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public bool AutoLaunch {
+            get {
+                return ((bool)(this["AutoLaunch"]));
+            }
+            set {
+                this["AutoLaunch"] = value;
             }
         }
     }
