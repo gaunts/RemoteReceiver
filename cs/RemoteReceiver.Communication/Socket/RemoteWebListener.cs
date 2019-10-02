@@ -26,8 +26,10 @@ namespace RemoteReceiver
         public StringBuilder sb = new StringBuilder();
     }
 
-    public class RemoteWebListener
+    public static class RemoteWebListener
     {
+        public delegate void WebCommandExecutionEventHandler(RemoteCommand command);
+        public static WebCommandExecutionEventHandler WebCommandExecutionReceived;
         static Socket newConnectionSocket;
 
         public static void StartListening()
@@ -97,7 +99,7 @@ namespace RemoteReceiver
                     Debug.WriteLine("Read {0} bytes from socket. \n Data : {1}",
                         content.Length, content);
                     if (Enum.TryParse(content, out RemoteCommand command))
-                        SocketCommandExecution.ExecuteCommand(command);
+                        WebCommandExecutionReceived?.Invoke(command);
                     state.sb = new StringBuilder();
                 }
 

@@ -13,6 +13,10 @@ namespace RemoteReceiver
 {
     public static class RemoteSerialListener
     {
+        public delegate void IRReceiverComPortChangedEventHandler(string newPort);
+        public static event IRReceiverComPortChangedEventHandler IRReceiverComPortChanged;
+        public static event Action AvailableComPortsChanged;
+
         static SerialPort _devicePort;
         static bool _connectedOnce;
         const string _responseString = "qkjweklqjwe87dahgdq9qwd";
@@ -23,12 +27,13 @@ namespace RemoteReceiver
         public static void StartListening()
         {
             SerialPortService.PortsChanged += PortsChanged;
-            RefreshAutoDetectPreference();
+            RefreshAutoDetectPreference(PreferencesManager.IsAutoDetectEnabled);
+            PreferencesManager.AutoDetectChanged += RefreshAutoDetectPreference;
         }
 
-        public static void RefreshAutoDetectPreference()
+        public static void RefreshAutoDetectPreference(bool autoDetect)
         {
-            if (PreferencesManager.IsAutoDetectEnabled && _devicePort == null)
+            if (autoDetect && _devicePort == null)
                 FindDevice(SerialPortService.GetAvailableSerialPorts());
         }
 
@@ -36,12 +41,12 @@ namespace RemoteReceiver
         {
             _devicePort?.Close();
             _devicePort = null;
-            SysTray.SelectPortName(null);
+            IRReceiverComPortChanged?.Invoke(null);
         }
 
         private static async void PortsChanged(object sender, PortsChangedArgs e)
         {
-            SysTray.UpdateAvailablePorts();
+            AvailableComPortsChanged?.Invoke();
             if (_devicePort != null && 
                 e.EventType == EventType.Removal && 
                 !e.SerialPorts.Contains(_devicePort.PortName))
@@ -101,7 +106,7 @@ namespace RemoteReceiver
                     _devicePort = testedPort;
                     _devicePort.DataReceived += SerialRead;
                     Debug.WriteLine($"Port {comPort} is IR receiver !");
-                    SysTray.SelectPortName(comPort);
+                    IRReceiverComPortChanged?.Invoke(comPort);
                     _connectedOnce = true;
                     return true;
                 }
@@ -120,23 +125,5 @@ namespace RemoteReceiver
             SerialPort port = (SerialPort)sender;
             Debug.WriteLine(port.ReadExisting());
         }
-
-        //private static void ConfirmationReceive(object sender, SerialDataReceivedEventArgs e)
-        //{
-        //    SerialPort testedPort = (SerialPort)sender;
-        //    string result = testedPort.ReadExisting().TrimEnd('\r', '\n');
-        //    testedPort.DataReceived -= ConfirmationReceive;
-        //    testedPort.Close();
-        //    if (result != responseString)
-        //    {
-        //        Debug.WriteLine($"Port {testedPort.PortName} said {result}");
-        //    }
-        //    else
-        //    {
-        //        _devicePort = new SerialPort(testedPort.PortName, 9600, Parity.None, 8, StopBits.One);
-        //        _devicePort.DataReceived += SerialRead;
-        //        Debug.WriteLine($"Port {testedPort.PortName} is IR receiver !");
-        //    }
-        //}
     }
 }

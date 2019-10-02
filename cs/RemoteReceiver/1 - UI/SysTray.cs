@@ -20,16 +20,15 @@ namespace RemoteReceiver
 
         public static void Init()
         {
-            if (nIcon == null)
-            {
-                InitIcon();
-                CreateContextMenu();
-                UpdateContextMenuChecks();
-                UpdateAvailablePorts();
-                nIcon.Visible = true;
-            }
-            else
+            if (nIcon != null)
                 throw new Exception("systray can only init once");
+
+            InitIcon();
+            CreateContextMenu();
+            UpdateContextMenuChecks();
+            UpdateAvailablePorts();
+            nIcon.Visible = true;
+            RemoteSerialListener.AvailableComPortsChanged += UpdateAvailablePorts;
         }
 
         private static void InitIcon()
@@ -43,8 +42,6 @@ namespace RemoteReceiver
         private static void CreateContextMenu()
         {
             nIcon.ContextMenu = new ContextMenu();
-
-            var a = Settings.Default.PropertyValues;
 
             nIcon.ContextMenu.MenuItems.Add("Launch at windows startup").Click += (s, c) => { PreferencesManager.IsAutoLaunchEnabled = !PreferencesManager.IsAutoLaunchEnabled; UpdateContextMenuChecks(); };
             nIcon.ContextMenu.MenuItems.Add("Auto detect receiver").Click += (s, c) => { PreferencesManager.IsAutoDetectEnabled = !PreferencesManager.IsAutoDetectEnabled; UpdateContextMenuChecks(); };

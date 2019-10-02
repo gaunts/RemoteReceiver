@@ -26,6 +26,7 @@ namespace RemoteReceiver
             base.OnStartup(e);
             PreferencesManager.CorrectAutoLaunchPath();
             SysTray.Init();
+            RemoteWebListener.WebCommandExecutionReceived += SocketCommandExecution.ExecuteCommand;
             RemoteWebListener.StartListening();
             RemoteSerialListener.StartListening();
             ConfigurationHelper.ShowConfigurationWindow();

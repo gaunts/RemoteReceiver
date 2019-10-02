@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,6 +46,19 @@
     <Compile Include="Serial\RemoteSerialListener.cs" />
     <Compile Include="Serial\SerialPortService.cs" />
     <Compile Include="Socket\RemoteWebListener.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RemoteInterface\RemoteInterface.csproj">
+      <Project>{f028f2b3-ba77-4cc7-904d-8af228d32524}</Project>
+      <Name>RemoteInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RemoteReceiver.Model\RemoteReceiver.Model.csproj">
+      <Project>{d708d317-7877-4e65-929f-1e89f6ca83a2}</Project>
+      <Name>RemoteReceiver.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

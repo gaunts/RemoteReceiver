@@ -10,26 +10,10 @@ using System.Windows;
 
 namespace RemoteReceiver.Model
 {
-    public class PreferencesManager
+    public static class PreferencesManager
     {
-        private static readonly PreferencesManager _instance;
-        public static PreferencesManager Instance
-        {
-            get
-            {
-                return _instance;
-            }
-        }
-
-        static PreferencesManager()
-        {
-            _instance = new PreferencesManager();
-        }
-
-        private PreferencesManager()
-        {
-
-        }
+        public delegate void BoolPreferenceChangedEventHandler(bool newValue);
+        public static event BoolPreferenceChangedEventHandler AutoDetectChanged;
 
         public static bool IsAutoDetectEnabled
         {
@@ -41,7 +25,7 @@ namespace RemoteReceiver.Model
             {
                 Settings.Default.AutoDetect = value;
                 Settings.Default.Save();
-                RemoteSerialListener.RefreshAutoDetectPreference();
+                AutoDetectChanged?.Invoke(value);
             }
         }
 
@@ -75,22 +59,17 @@ namespace RemoteReceiver.Model
                 {
                     return AutoLaunchRegistryKey.GetValue(CurrentAssembly.GetName().Name) != null;
                 }
-                catch { }
-                return false;
+                catch
+                {
+                    return false;
+                }
             }
             set
             {
-                try
-                {
-                    if (value)
-                        AutoLaunchRegistryKey.SetValue(CurrentAssembly.GetName().Name, CurrentAssembly.Location);
-                    else
-                        AutoLaunchRegistryKey.DeleteValue(CurrentAssembly.GetName().Name);
-                }
-                catch
-                {
-                    MessageBox.Show("Error : could not register the app for auto launch");
-                }
+                if (value)
+                    AutoLaunchRegistryKey.SetValue(CurrentAssembly.GetName().Name, CurrentAssembly.Location);
+                else
+                    AutoLaunchRegistryKey.DeleteValue(CurrentAssembly.GetName().Name);
             }
         }
 
