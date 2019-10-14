@@ -47,6 +47,7 @@ namespace RemoteReceiver.Model {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool AutoDetect {
             get {
                 return ((bool)(this["AutoDetect"]));
@@ -58,6 +59,7 @@ namespace RemoteReceiver.Model {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool AutoLaunch {
             get {
                 return ((bool)(this["AutoLaunch"]));

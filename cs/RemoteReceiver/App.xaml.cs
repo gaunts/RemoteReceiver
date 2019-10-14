@@ -22,10 +22,15 @@ namespace RemoteReceiver
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            AppDomain.CurrentDomain.AssemblyResolve += OnResolveAssembly;
+            //AppDomain.CurrentDomain.AssemblyResolve += OnResolveAssembly;
+
             base.OnStartup(e);
             PreferencesManager.CorrectAutoLaunchPath();
-            SysTray.Init();
+
+            var sysTray = new SysTray();
+            sysTray.BeginInit();
+            //SysTrayOld.Init();
+
             RemoteWebListener.WebCommandExecutionReceived += SocketCommandExecution.ExecuteCommand;
             RemoteWebListener.StartListening();
             RemoteSerialListener.StartListening();

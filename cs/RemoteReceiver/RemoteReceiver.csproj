@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>RemoteReceiver</RootNamespace>
     <AssemblyName>RemoteReceiver</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -50,6 +50,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Hardcodet.Wpf.TaskbarNotification, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.0.8\lib\net451\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -76,34 +79,32 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="1 - UI\Converters\EnumConverter.cs" />
-    <Compile Include="2 - ViewModel\ButtonConfigViewModel.cs" />
-    <Compile Include="2 - ViewModel\ConfigurationWindowViewModel.cs" />
-    <Compile Include="2 - ViewModel\ProfileViewModel.cs" />
-    <Compile Include="2 - ViewModel\ViewModelBase.cs" />
+    <Compile Include="UI\Converters\EnumConverter.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="1 - UI\ButtonConfigViews\ButtonActionCreation.xaml.cs">
+    <Compile Include="UI\ButtonConfigViews\ButtonActionCreation.xaml.cs">
       <DependentUpon>ButtonActionCreation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="1 - UI\ButtonConfigViews\DataTemplates\RemoteButtonView.xaml.cs">
+    <Compile Include="UI\ButtonConfigViews\DataTemplates\RemoteButtonView.xaml.cs">
       <DependentUpon>RemoteButtonView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="1 - UI\ButtonConfigViews\ConfigurationHelper.cs" />
+    <Compile Include="UI\ButtonConfigViews\ConfigurationHelper.cs" />
     <Compile Include="CommandExecution\SocketCommandExecution.cs" />
-    <Compile Include="1 - UI\ButtonConfigViews\ConfigurationWindow.xaml.cs">
+    <Compile Include="UI\ButtonConfigViews\ConfigurationWindow.xaml.cs">
       <DependentUpon>ConfigurationWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="1 - UI\ButtonConfigViews\DataTemplates\ProfileView.xaml.cs">
+    <Compile Include="UI\ButtonConfigViews\DataTemplates\ProfileView.xaml.cs">
       <DependentUpon>ProfileView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="1 - UI\EnumCombobox.cs" />
-    <Compile Include="1 - UI\SysTray.cs" />
+    <Compile Include="UI\EnumCombobox.cs" />
+    <Compile Include="UI\SysTray.xaml.cs">
+      <DependentUpon>SysTray.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SysTrayOld.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -152,6 +153,10 @@
       <Project>{079a401e-8866-425c-8daa-c409a383209d}</Project>
       <Name>RemoteReceiver.ViewModel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{b22d95fd-99ef-42ac-84bc-cebbba281649}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\fuck.ico">
@@ -159,19 +164,23 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="1 - UI\ButtonConfigViews\ButtonActionCreation.xaml">
+    <Page Include="UI\ButtonConfigViews\ButtonActionCreation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="1 - UI\ButtonConfigViews\DataTemplates\RemoteButtonView.xaml">
+    <Page Include="UI\ButtonConfigViews\DataTemplates\RemoteButtonView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="1 - UI\ButtonConfigViews\ConfigurationWindow.xaml">
+    <Page Include="UI\ButtonConfigViews\ConfigurationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="1 - UI\ButtonConfigViews\DataTemplates\ProfileView.xaml">
+    <Page Include="UI\ButtonConfigViews\DataTemplates\ProfileView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\SysTray.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

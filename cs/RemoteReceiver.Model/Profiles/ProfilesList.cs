@@ -4,10 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WindowsInput.Native;
 using System.Collections;
-using RemoteReceiver.Properties;
-using System.Windows.Data;
 using System.Configuration;
 
 namespace RemoteReceiver.Model

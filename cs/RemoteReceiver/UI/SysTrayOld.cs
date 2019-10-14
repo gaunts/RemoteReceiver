@@ -9,14 +9,17 @@ using System.Windows.Forms;
 using System.Windows.Resources;
 using System.Windows;
 using RemoteReceiver.Properties;
-using static System.Windows.Forms.Menu;
 using RemoteReceiver.Model;
+using RemoteReceiver.ViewModel;
+using static System.Windows.Forms.Menu;
+
 
 namespace RemoteReceiver
 {
-    public class SysTray
+    public class SysTrayOld
     {
         private static NotifyIcon nIcon;
+        private static SystrayViewModel viewModel;
 
         public static void Init()
         {
@@ -43,7 +46,7 @@ namespace RemoteReceiver
         {
             nIcon.ContextMenu = new ContextMenu();
 
-            nIcon.ContextMenu.MenuItems.Add("Launch at windows startup").Click += (s, c) => { PreferencesManager.IsAutoLaunchEnabled = !PreferencesManager.IsAutoLaunchEnabled; UpdateContextMenuChecks(); };
+            nIcon.ContextMenu.MenuItems.Add("Launch at windows startup").Click += (s, c) => { viewModel.ReverseAutoLaunch(); };
             nIcon.ContextMenu.MenuItems.Add("Auto detect receiver").Click += (s, c) => { PreferencesManager.IsAutoDetectEnabled = !PreferencesManager.IsAutoDetectEnabled; UpdateContextMenuChecks(); };
             nIcon.ContextMenu.MenuItems.Add("Receiver");
             nIcon.ContextMenu.MenuItems.Add("Configure").Click += (s, c) => { ConfigurationHelper.ShowConfigurationWindow(); };
@@ -52,7 +55,7 @@ namespace RemoteReceiver
 
         private static void UpdateContextMenuChecks()
         {
-            nIcon.ContextMenu.MenuItems[0].Checked = PreferencesManager.IsAutoLaunchEnabled;
+            nIcon.ContextMenu.MenuItems[0].Checked = viewModel.IsAutoLaunchEnabled;
             nIcon.ContextMenu.MenuItems[1].Checked = PreferencesManager.IsAutoDetectEnabled;
         }
 

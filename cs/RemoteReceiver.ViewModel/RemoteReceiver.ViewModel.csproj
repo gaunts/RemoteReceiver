@@ -41,7 +41,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pages ViewModels\ButtonConfigViewModel.cs" />
+    <Compile Include="Pages ViewModels\ConfigurationWindowViewModel.cs" />
+    <Compile Include="Data ViewModels\ProfileViewModel.cs" />
+    <Compile Include="Pages ViewModels\SystrayViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModelBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RemoteReceiver.Model\RemoteReceiver.Model.csproj">
+      <Project>{d708d317-7877-4e65-929f-1e89f6ca83a2}</Project>
+      <Name>RemoteReceiver.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{b22d95fd-99ef-42ac-84bc-cebbba281649}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
