@@ -9,9 +9,6 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms;
-using WindowsInput;
-using WindowsInput.Native;
 
 namespace RemoteReceiver
 {
@@ -22,11 +19,12 @@ namespace RemoteReceiver
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            //AppDomain.CurrentDomain.AssemblyResolve += OnResolveAssembly;
-
+            AppDomain.CurrentDomain.AssemblyResolve += OnResolveAssembly;
+            Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
             base.OnStartup(e);
-            PreferencesManager.CorrectAutoLaunchPath();
 
+            var assembly = Assembly.GetExecutingAssembly();
+            PreferencesManager.CorrectAutoLaunchPath(assembly.Location);
             var sysTray = new SysTray();
             sysTray.BeginInit();
             //SysTrayOld.Init();
@@ -34,7 +32,8 @@ namespace RemoteReceiver
             RemoteWebListener.WebCommandExecutionReceived += SocketCommandExecution.ExecuteCommand;
             RemoteWebListener.StartListening();
             RemoteSerialListener.StartListening();
-            ConfigurationHelper.ShowConfigurationWindow();
+
+            //ConfigurationHelper.ShowConfigurationWindow();
         }
 
         private static Assembly OnResolveAssembly(object sender, ResolveEventArgs args)
@@ -45,7 +44,8 @@ namespace RemoteReceiver
                 AssemblyName assemblyName = new AssemblyName(args.Name);
 
                 var path = assemblyName.Name + ".dll";
-                if (assemblyName.CultureInfo.Equals(CultureInfo.InvariantCulture) == false) path = String.Format(@"{0}\{1}", assemblyName.CultureInfo, path);
+                if (assemblyName.CultureInfo.Equals(CultureInfo.InvariantCulture) == false)
+                    path = String.Format(@"{0}\{1}", assemblyName.CultureInfo, path);
 
                 using (Stream stream = executingAssembly.GetManifestResourceStream(path))
                 {

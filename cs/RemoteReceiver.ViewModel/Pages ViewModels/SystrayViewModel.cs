@@ -9,15 +9,19 @@ namespace RemoteReceiver.ViewModel
 {
     public class SystrayViewModel : ViewModelBase
     {
-        public bool IsAutoLaunchEnabled
+        public bool IsAutoLaunchEnabled => PreferencesManager.IsAutoLaunchEnabled;
+        public bool IsAutoDetectEnabled => PreferencesManager.IsAutoDetectEnabled;
+
+        public void SetAutoLaunch(bool enabled)
         {
-            get { return PreferencesManager.IsAutoLaunchEnabled; }
+            PreferencesManager.IsAutoLaunchEnabled = enabled;
+            NotifyPropertyChanged(nameof(IsAutoLaunchEnabled));
         }
 
-        public void ReverseAutoLaunch()
+        public void SetAutoDetect(bool enabled)
         {
-            PreferencesManager.IsAutoLaunchEnabled = PreferencesManager.IsAutoLaunchEnabled;
-            NotifyPropertyChanged(nameof(IsAutoLaunchEnabled));
+            PreferencesManager.IsAutoDetectEnabled = enabled;
+            NotifyPropertyChanged(nameof(IsAutoDetectEnabled));
         }
     }
 }

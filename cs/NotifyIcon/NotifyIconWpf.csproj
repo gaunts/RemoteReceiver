@@ -1,0 +1,30 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras" ToolsVersion="Current">
+  <PropertyGroup>
+    <RootNamespace>Hardcodet.Wpf.TaskbarNotification</RootNamespace>
+    <AssemblyName>Hardcodet.Wpf.TaskbarNotification</AssemblyName>
+    <AssemblyTitle>NotifyIcon for WPF</AssemblyTitle>
+    <Company>hardcodet.net</Company>
+    <Product>NotifyIcon WPF</Product>
+    <Description>NotifyIcon implementation for the WPF platform.</Description>
+    <Copyright>Copyright © Philipp Sumi 2013</Copyright>
+    <AssemblyVersion>1.0.8.0</AssemblyVersion>
+    <FileVersion>1.0.8.0</FileVersion>
+    <ExtrasEnableWpfProjectSetup>true</ExtrasEnableWpfProjectSetup>
+    <FileUpgradeFlags>40</FileUpgradeFlags>
+    <UpgradeBackupLocation>C:\Users\simon\source\repos\Remote\RemoteReceiver\cs\Backup\</UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Diagrams\TaskbarIcon Overview.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile DependentUpon="%(Filename)" SubType="Code" Update="**\obj\**\*.g$(DefaultLanguageSourceExtension)" />
+    <Compile DependentUpon="%(Filename)" SubType="Designer" Update="**\*.xaml$(DefaultLanguageSourceExtension)" />
+  </ItemGroup>
+</Project>

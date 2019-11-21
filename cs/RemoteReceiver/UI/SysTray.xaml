@@ -13,8 +13,39 @@
         <viewmodel:SystrayViewModel x:Name="SystrayViewModel"/>
     </UserControl.DataContext>
 
-    <tb:TaskbarIcon x:Name="notifyIcon"
-                    ToolTipText="Fuck You"
+    <UserControl.Resources>
+    </UserControl.Resources>
+
+    <tb:TaskbarIcon x:Name="notifyIcon" 
                     IconSource="/Icons/Fuck.ico"
-                    />
+                    ToolTipText="Fuck You"
+                    >
+        <tb:TaskbarIcon.ContextMenu>
+            <ContextMenu x:Name="TrayIconContextMenu">
+                <MenuItem x:Name="AutoLaunchMenuItem"
+                      Header="Launch at windows startup"
+                      IsCheckable="True" 
+                      Click="WindowsStartup_Click"
+                      IsChecked="{Binding IsAutoLaunchEnabled, Mode=OneWay}"
+                      />
+                <MenuItem x:Name="AutoDetectMenuItem"
+                      Header="Auto detect receiver"
+                      IsCheckable="True"
+                      Click="Autodetect_Click"
+                      IsChecked="{Binding IsAutoDetectEnabled, Mode=OneWay}"
+                      />
+                <MenuItem Header="Receiver">
+                    <MenuItem.Items>
+                        <MenuItem Header="Test"/>
+                    </MenuItem.Items>
+                </MenuItem>
+                <MenuItem Header="Configure"
+                      Click="Configure_Click"
+                      />
+                <MenuItem Header="Exit"
+                      Click="Exit_Click"
+                      />
+            </ContextMenu>
+        </tb:TaskbarIcon.ContextMenu>
+    </tb:TaskbarIcon>
 </UserControl>

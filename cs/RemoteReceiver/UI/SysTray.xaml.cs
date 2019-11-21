@@ -23,27 +23,37 @@ namespace RemoteReceiver
     /// </summary>
     public partial class SysTray : System.Windows.Controls.UserControl
     {
-        NotifyIcon nIcon;
+        private bool _hasLoaded = false;
 
         public SysTray()
         {
-            //this.Loaded += HasLoaded;
-
+            this.Loaded += HasLoaded;
             InitializeComponent();
         }
 
         private void HasLoaded(object sender, RoutedEventArgs e)
         {
-            //nIcon = new NotifyIcon();
-            //StreamResourceInfo sri = System.Windows.Application.GetResourceStream(new Uri("Icons/fuck.ico", UriKind.Relative));
-            //nIcon.Icon = new System.Drawing.Icon(sri.Stream);
-            //nIcon.Text = "Fuck you bitch";
-            //nIcon.Visible = true;
+            _hasLoaded = true;
         }
 
-        private void WindowsStartup_click(object sender, RoutedEventArgs e)
+        private void WindowsStartup_Click(object sender, RoutedEventArgs e)
+        {
+            SystrayViewModel.SetAutoLaunch(this.AutoLaunchMenuItem.IsChecked);
+        }
+
+        private void Autodetect_Click(object sender, RoutedEventArgs e)
+        {
+            SystrayViewModel.SetAutoDetect(this.AutoDetectMenuItem.IsChecked);
+        }
+
+        private void Configure_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
         }
     }
 }

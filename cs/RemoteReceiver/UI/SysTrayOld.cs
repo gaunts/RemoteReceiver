@@ -25,7 +25,7 @@ namespace RemoteReceiver
         {
             if (nIcon != null)
                 throw new Exception("systray can only init once");
-
+            viewModel = new SystrayViewModel();
             InitIcon();
             CreateContextMenu();
             UpdateContextMenuChecks();
@@ -46,7 +46,7 @@ namespace RemoteReceiver
         {
             nIcon.ContextMenu = new ContextMenu();
 
-            nIcon.ContextMenu.MenuItems.Add("Launch at windows startup").Click += (s, c) => { viewModel.ReverseAutoLaunch(); };
+            nIcon.ContextMenu.MenuItems.Add("Launch at windows startup").Click += (s, c) => { viewModel.SetAutoLaunch(true); UpdateContextMenuChecks(); };
             nIcon.ContextMenu.MenuItems.Add("Auto detect receiver").Click += (s, c) => { PreferencesManager.IsAutoDetectEnabled = !PreferencesManager.IsAutoDetectEnabled; UpdateContextMenuChecks(); };
             nIcon.ContextMenu.MenuItems.Add("Receiver");
             nIcon.ContextMenu.MenuItems.Add("Configure").Click += (s, c) => { ConfigurationHelper.ShowConfigurationWindow(); };

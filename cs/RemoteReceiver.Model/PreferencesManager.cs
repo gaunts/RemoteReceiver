@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -31,19 +32,21 @@ namespace RemoteReceiver.Model
 
         private static RegistryKey AutoLaunchRegistryKey
             => Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-        private static Assembly CurrentAssembly 
-            => Assembly.GetExecutingAssembly();
+        private static string _appName;
+        private static string _appFullPath;
 
-        public static void CorrectAutoLaunchPath()
+        public static void CorrectAutoLaunchPath(string appFullPath)
         {
+            _appFullPath = appFullPath;
+            _appName = Path.GetFileNameWithoutExtension(appFullPath);
             try
             {
                 if (IsAutoLaunchEnabled)
                 {
-                    if (AutoLaunchRegistryKey.GetValue(CurrentAssembly.GetName().Name) is string path &&
-                        path != CurrentAssembly.Location)
+                    if (AutoLaunchRegistryKey.GetValue(_appName) is string savedPath &&
+                        savedPath != _appFullPath)
                     {
-                        AutoLaunchRegistryKey.DeleteValue(CurrentAssembly.GetName().Name);
+                        AutoLaunchRegistryKey.DeleteValue(_appName);
                         IsAutoLaunchEnabled = true;
                     }
                 }
@@ -57,7 +60,7 @@ namespace RemoteReceiver.Model
             {
                 try
                 {
-                    return AutoLaunchRegistryKey.GetValue(CurrentAssembly.GetName().Name) != null;
+                    return AutoLaunchRegistryKey.GetValue(_appName) != null;
                 }
                 catch
                 {
@@ -67,9 +70,9 @@ namespace RemoteReceiver.Model
             set
             {
                 if (value)
-                    AutoLaunchRegistryKey.SetValue(CurrentAssembly.GetName().Name, CurrentAssembly.Location);
+                    AutoLaunchRegistryKey.SetValue(_appName, _appFullPath);
                 else
-                    AutoLaunchRegistryKey.DeleteValue(CurrentAssembly.GetName().Name);
+                    AutoLaunchRegistryKey.DeleteValue(_appName);
             }
         }
 
