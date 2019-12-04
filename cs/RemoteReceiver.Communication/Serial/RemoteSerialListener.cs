@@ -119,7 +119,6 @@ namespace RemoteReceiver
             return false;
         }
 
-
         private static void SerialRead(object sender, SerialDataReceivedEventArgs e)
         {
             SerialPort port = (SerialPort)sender;

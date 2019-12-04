@@ -49,6 +49,10 @@
     <Compile Include="ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RemoteReceiver.Communication\RemoteReceiver.Communication.csproj">
+      <Project>{9c6ef90e-0fee-4da5-affa-b96ecf6d2a6f}</Project>
+      <Name>RemoteReceiver.Communication</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RemoteReceiver.Model\RemoteReceiver.Model.csproj">
       <Project>{d708d317-7877-4e65-929f-1e89f6ca83a2}</Project>
       <Name>RemoteReceiver.Model</Name>

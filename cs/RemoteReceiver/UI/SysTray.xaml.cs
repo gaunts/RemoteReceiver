@@ -55,5 +55,10 @@ namespace RemoteReceiver
         {
             System.Windows.Application.Current.Shutdown();
         }
+
+        private async void ComPort_Click(object sender, RoutedEventArgs e)
+        {
+            await SystrayViewModel.SelectPort((sender as System.Windows.Controls.MenuItem)?.DataContext as string);
+        }
     }
 }

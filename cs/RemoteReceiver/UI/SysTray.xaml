@@ -34,10 +34,14 @@
                       Click="Autodetect_Click"
                       IsChecked="{Binding IsAutoDetectEnabled, Mode=OneWay}"
                       />
-                <MenuItem Header="Receiver">
-                    <MenuItem.Items>
-                        <MenuItem Header="Test"/>
-                    </MenuItem.Items>
+                <MenuItem Header="Receiver"
+                          ItemsSource="{Binding AvailablePorts, Mode=OneWay}"
+                          >
+                    <MenuItem.ItemContainerStyle>
+                        <Style BasedOn="{StaticResource {x:Type MenuItem}}" TargetType="MenuItem">
+                            <EventSetter Event="Click" Handler="ComPort_Click"/>
+                        </Style>
+                    </MenuItem.ItemContainerStyle>
                 </MenuItem>
                 <MenuItem Header="Configure"
                       Click="Configure_Click"
