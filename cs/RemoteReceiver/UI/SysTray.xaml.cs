@@ -48,7 +48,7 @@ namespace RemoteReceiver
 
         private void Configure_Click(object sender, RoutedEventArgs e)
         {
-
+            ConfigurationWindow.ShowConfigurationWindow();
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
@@ -58,7 +58,10 @@ namespace RemoteReceiver
 
         private async void ComPort_Click(object sender, RoutedEventArgs e)
         {
-            await SystrayViewModel.SelectPort((sender as System.Windows.Controls.MenuItem)?.DataContext as string);
+            string selectedString = (sender as System.Windows.Controls.MenuItem)?.DataContext as string;
+            bool result = await SystrayViewModel.SelectPort(selectedString);
+            if (!result)
+                notifyIcon.ShowBalloonTip("Meh", $"{selectedString} is not an IR receiver", Hardcodet.Wpf.TaskbarNotification.BalloonIcon.None);
         }
     }
 }

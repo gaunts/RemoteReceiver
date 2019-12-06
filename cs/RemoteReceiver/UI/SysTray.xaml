@@ -23,17 +23,19 @@
         <tb:TaskbarIcon.ContextMenu>
             <ContextMenu x:Name="TrayIconContextMenu">
                 <MenuItem x:Name="AutoLaunchMenuItem"
-                      Header="Launch at windows startup"
-                      IsCheckable="True" 
-                      Click="WindowsStartup_Click"
-                      IsChecked="{Binding IsAutoLaunchEnabled, Mode=OneWay}"
-                      />
+                          Header="Launch at windows startup"
+                          StaysOpenOnClick="True"
+                          IsCheckable="True" 
+                          Click="WindowsStartup_Click"
+                          IsChecked="{Binding IsAutoLaunchEnabled, Mode=OneWay}"
+                          />
                 <MenuItem x:Name="AutoDetectMenuItem"
-                      Header="Auto detect receiver"
-                      IsCheckable="True"
-                      Click="Autodetect_Click"
-                      IsChecked="{Binding IsAutoDetectEnabled, Mode=OneWay}"
-                      />
+                          Header="Auto detect receiver"
+                          StaysOpenOnClick="True"
+                          IsCheckable="True"
+                          Click="Autodetect_Click"
+                          IsChecked="{Binding IsAutoDetectEnabled, Mode=OneWay}"
+                          />
                 <MenuItem Header="Receiver"
                           ItemsSource="{Binding AvailablePorts, Mode=OneWay}"
                           >

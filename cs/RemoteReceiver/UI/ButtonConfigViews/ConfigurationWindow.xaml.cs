@@ -101,5 +101,11 @@ namespace RemoteReceiver
         {
             var item = ProfilesListView.ItemContainerGenerator.ContainerFromItem(ProfilesListView.SelectedItem);
         }
+
+        public static void ShowConfigurationWindow()
+        {
+            ConfigurationWindow window = new ConfigurationWindow();
+            window.Show();
+        }
     }
 }

@@ -90,7 +90,6 @@
     <Compile Include="UI\ButtonConfigViews\DataTemplates\RemoteButtonView.xaml.cs">
       <DependentUpon>RemoteButtonView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ButtonConfigViews\ConfigurationHelper.cs" />
     <Compile Include="CommandExecution\SocketCommandExecution.cs" />
     <Compile Include="UI\ButtonConfigViews\ConfigurationWindow.xaml.cs">
       <DependentUpon>ConfigurationWindow.xaml</DependentUpon>
