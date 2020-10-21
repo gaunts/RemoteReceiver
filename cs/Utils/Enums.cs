@@ -20,7 +20,6 @@ namespace Utils
         }
     }
 
-
     public static class EnumExtensions
     {
         public static Attribute GetCustomAttribute(this Enum enumValue, Type attributeType)

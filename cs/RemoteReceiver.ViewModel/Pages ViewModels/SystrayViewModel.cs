@@ -8,17 +8,33 @@ using System.Threading.Tasks;
 
 namespace RemoteReceiver.ViewModel
 {
+    public class ComPortInfo
+    {
+        public string PortName { get; set; }
+        public bool IsSelected { get; set; }
+    }
+
     public class SystrayViewModel : ViewModelBase
     {
         public bool IsAutoLaunchEnabled => PreferencesManager.IsAutoLaunchEnabled;
         public bool IsAutoDetectEnabled => PreferencesManager.IsAutoDetectEnabled;
+        public string SelectedPortName { get; set; }
 
-        public ObservableCollection<string> AvailablePorts { get; private set; } = new ObservableCollection<string>();
+        public event Action PortSelectionChanged;
+
+        public ObservableCollection<ComPortInfo> AvailablePorts { get; private set; } = new ObservableCollection<ComPortInfo>();
 
         public SystrayViewModel()
         {
             UpdateAvailablePorts();
             RemoteSerialListener.AvailableComPortsChanged += UpdateAvailablePorts;
+            RemoteSerialListener.IRReceiverComPortChanged += PortSelectionChangedHandler;
+        }
+
+        private void PortSelectionChangedHandler(string newPort)
+        {
+            SelectedPortName = newPort;
+            NotifyPropertyChanged(nameof(SelectedPortName));
         }
 
         ~SystrayViewModel()
@@ -49,7 +65,7 @@ namespace RemoteReceiver.ViewModel
             AvailablePorts.Clear();
             foreach (string portName in SerialPortService.GetAvailableSerialPorts().OrderBy(s => s))
             {
-                AvailablePorts.Add(portName);
+                AvailablePorts.Add(new ComPortInfo() { PortName = portName });
             }
         }
     }

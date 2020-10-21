@@ -38,10 +38,18 @@
                           />
                 <MenuItem Header="Receiver"
                           ItemsSource="{Binding AvailablePorts, Mode=OneWay}"
-                          >
+                          x:Name="ReceiverMenuItem">
                     <MenuItem.ItemContainerStyle>
                         <Style BasedOn="{StaticResource {x:Type MenuItem}}" TargetType="MenuItem">
                             <EventSetter Event="Click" Handler="ComPort_Click"/>
+                            <Setter Property="IsChecked" Value="True"/>
+                            <Setter Property="Header" Value="{Binding PortName}"/>
+                            <!--<Setter Property="Header">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>-->
                         </Style>
                     </MenuItem.ItemContainerStyle>
                 </MenuItem>

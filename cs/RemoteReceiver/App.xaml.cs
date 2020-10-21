@@ -27,7 +27,6 @@ namespace RemoteReceiver
             PreferencesManager.CorrectAutoLaunchPath(assembly.Location);
             var sysTray = new SysTray();
             sysTray.BeginInit();
-            //SysTrayOld.Init();
 
             RemoteWebListener.WebCommandExecutionReceived += SocketCommandExecution.ExecuteCommand;
             RemoteWebListener.StartListening();
