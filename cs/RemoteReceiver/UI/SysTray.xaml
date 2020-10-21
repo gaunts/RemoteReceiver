@@ -42,7 +42,7 @@
                     <MenuItem.ItemContainerStyle>
                         <Style BasedOn="{StaticResource {x:Type MenuItem}}" TargetType="MenuItem">
                             <EventSetter Event="Click" Handler="ComPort_Click"/>
-                            <Setter Property="IsChecked" Value="True"/>
+                            <Setter Property="IsChecked" Value="{Binding IsSelected}"/>
                             <Setter Property="Header" Value="{Binding PortName}"/>
                             <!--<Setter Property="Header">
                                 <Setter.Value>

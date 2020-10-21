@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RemoteReceiver.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -27,7 +28,6 @@ namespace RemoteReceiver
         public SysTray()
         {
             InitializeComponent();
-            SystrayViewModel.PropertyChanged += PropertyChanged;
         }
 
         private void WindowsStartup_Click(object sender, RoutedEventArgs e)
@@ -50,20 +50,9 @@ namespace RemoteReceiver
             System.Windows.Application.Current.Shutdown();
         }
 
-        private void PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(SystrayViewModel.SelectedPortName))
-            {
-                //foreach (var subItem in ReceiverMenuItem.Items.)
-                //{
-                //    //subItem.IsChecked = ((subItem.Header as string) == SystrayViewModel.SelectedPort);
-                //}
-            }
-        }
-
         private async void ComPort_Click(object sender, RoutedEventArgs e)
         {
-            string selectedString = (sender as System.Windows.Controls.MenuItem)?.DataContext as string;
+            string selectedString = ((sender as System.Windows.Controls.MenuItem)?.DataContext as ComPortInfo).PortName;
             bool result = await SystrayViewModel.SelectPort(selectedString);
             if (!result)
                 notifyIcon.ShowBalloonTip("Meh", $"{selectedString} is not an IR receiver", Hardcodet.Wpf.TaskbarNotification.BalloonIcon.None);

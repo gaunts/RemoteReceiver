@@ -8,19 +8,10 @@ using System.Threading.Tasks;
 
 namespace RemoteReceiver.ViewModel
 {
-    public class ComPortInfo
-    {
-        public string PortName { get; set; }
-        public bool IsSelected { get; set; }
-    }
-
     public class SystrayViewModel : ViewModelBase
     {
         public bool IsAutoLaunchEnabled => PreferencesManager.IsAutoLaunchEnabled;
         public bool IsAutoDetectEnabled => PreferencesManager.IsAutoDetectEnabled;
-        public string SelectedPortName { get; set; }
-
-        public event Action PortSelectionChanged;
 
         public ObservableCollection<ComPortInfo> AvailablePorts { get; private set; } = new ObservableCollection<ComPortInfo>();
 
@@ -33,8 +24,9 @@ namespace RemoteReceiver.ViewModel
 
         private void PortSelectionChangedHandler(string newPort)
         {
-            SelectedPortName = newPort;
-            NotifyPropertyChanged(nameof(SelectedPortName));
+            var port = AvailablePorts.Where(p => p.PortName == newPort).FirstOrDefault();
+            if (port != null)
+                port.IsSelected = true;
         }
 
         ~SystrayViewModel()
@@ -57,7 +49,7 @@ namespace RemoteReceiver.ViewModel
         public async Task<bool> SelectPort(string portName)
         {
             RemoteSerialListener.ClearCurrentPort();
-            return await RemoteSerialListener.TestPort(portName);
+            return await RemoteSerialListener.TestPortAsync(portName);
         }
 
         public void UpdateAvailablePorts()

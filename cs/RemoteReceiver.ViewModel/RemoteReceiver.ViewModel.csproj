@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data ViewModels\ComPortInfo.cs" />
     <Compile Include="Pages ViewModels\ButtonConfigViewModel.cs" />
     <Compile Include="Pages ViewModels\ConfigurationWindowViewModel.cs" />
     <Compile Include="Data ViewModels\ProfileViewModel.cs" />

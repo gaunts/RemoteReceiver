@@ -73,14 +73,15 @@ namespace RemoteReceiver
                 {
                     try
                     {
-                        await TestPort(comPort);
+                        await TestPortAsync(comPort);
                     }
                     catch { }
                 }));
             }
         }
 
-        public static async Task<bool> TestPort(string comPort)
+
+        public static bool TestPort(string comPort)
         {
             string result = null;
             Debug.WriteLine($"Testing port {comPort}");
@@ -92,7 +93,7 @@ namespace RemoteReceiver
                 {
                     testedPort.Write("test");
                     testedPort.Close();
-                    await Task.Delay(1500);
+                    //await Task.Delay(1500);
                     testedPort.Open();
                 }
                 testedPort.Write(_askingString);
@@ -117,6 +118,15 @@ namespace RemoteReceiver
             }
             testedPort.Close();
             return false;
+
+        }
+
+        public static async Task<bool> TestPortAsync(string comPort)
+        {
+            return await Task.Run(() =>
+            {
+                return TestPort(comPort);
+            });
         }
 
         private static void SerialRead(object sender, SerialDataReceivedEventArgs e)

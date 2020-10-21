@@ -71,7 +71,7 @@ namespace RemoteReceiver
                     RemoteSerialListener.ClearCurrentPort();
                     if (!isChecked)
                     {
-                        if (!(await RemoteSerialListener.TestPort(portName)))
+                        if (!(await RemoteSerialListener.TestPortAsync(portName)))
                         {
                             System.Windows.MessageBox.Show($"Port {portName} has not been recognized");
                         }
